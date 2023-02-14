@@ -106,4 +106,6 @@
 
 # HTTP Requests now that needs CSRF Token:
 
-#
+# Backend Server Domain Name: https://quickchat-production.up.railway.app
+
+# Frontend Server Domain Name: https://quickchat-app.netlify.app
