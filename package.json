@@ -1,7 +1,7 @@
 {
-  "name": "discord-clone",
+  "name": "quick-chat",
   "version": "1.0.0",
-  "description": "A replica of discord chat app",
+  "description": "A web based chat app",
   "main": "server.js",
   "type": "module",
   "scripts": {
