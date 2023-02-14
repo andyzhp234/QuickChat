@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+.antiscroll-inner {
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.antiscroll-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.antiscroll-inner::-moz-scrollbar {
+  display: none;
+}
+
+.shadow-4D {
+  box-shadow: 3px 3px 20px 8px #e0dfdf;
+}
+
+.text-gradient {
+  background-image: linear-gradient(to right, #ff512f, #f09819);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.landing-text-gradient {
+  background-image: linear-gradient(to right, #0061ff, #60efff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.h-full-16 {
+  height: calc(100vh - 4rem);
+}
