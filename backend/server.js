@@ -14,12 +14,30 @@ import MessageRoutes from "./routers/messageRoutes.js";
 
 const app = express();
 
-app.use(
-  cors({
-    origin: ["http://127.0.0.1:5173", "https://quickchat-app.netlify.app"],
-    credentials: true,
-  })
-);
+const allowedOrigins = [
+  "http://127.0.0.1:5173",
+  "https://quickchat-app.netlify.app",
+];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+// handle Cors Error
+app.use((err, req, res, next) => {
+  if (err instanceof Error && err.message === "Not allowed by CORS") {
+    res.status(403).json({ error: "CORS not allowed" });
+  } else {
+    next();
+  }
+});
 
 app.use(helmet());
 

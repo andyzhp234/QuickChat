@@ -1,7 +1,7 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = `https://quickchat-production.up.railway.app`;
+// axios.defaults.baseURL = `https://quickchat-production.up.railway.app`;
 
 async function checkIsAuth() {
   return await axios.get("/api/auth/checkAuth");

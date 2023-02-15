@@ -19,7 +19,7 @@ const socketGetFriendRequets = async (socket) => {
       friendRequests: allRequests,
     });
   } catch (error) {
-    console.log("!!!!!", error);
+    console.log(error);
   }
 };
 

@@ -14,11 +14,16 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="" element={<LandingPage />} />
-        <Route path="/login" element={<PublicRoute children={<Login />} />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+
+        {/* <Route path="/login" element={<PublicRoute children={<Login />} />} />
         <Route
           path="/register"
           element={<PublicRoute children={<Register />} />}
-        />
+        /> */}
+        {/* 
         <Route
           path="/dashboard"
           element={
@@ -30,7 +35,7 @@ function App() {
               }
             />
           }
-        />
+        /> */}
       </Routes>
     </BrowserRouter>
   );
