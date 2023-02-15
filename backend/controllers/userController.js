@@ -88,6 +88,7 @@ const registerUser = async (req, res) => {
 };
 
 const checkUserSession = async (req, res) => {
+  console.log(req.session.isAuthenticated);
   if (req.session.isAuthenticated) {
     res.status(200).send({ message: "Authorized" });
   } else {
