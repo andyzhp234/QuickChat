@@ -109,3 +109,9 @@
 # Backend Server Domain Name: https://quickchat-production.up.railway.app
 
 # Frontend Server Domain Name: https://quickchat-app.netlify.app
+
+# tricky bugs I encounter: Cookies are not being sent from server to client. Even when sameSite is set to none and secure set to true. The http response don't have set-cookie header.
+
+# This event is happening even when both client and server have https. https://quickchat-production.up.railway.app && https://quickchat-app.netlify.app.
+
+# solution: the requests is send using http, which I don't understand why. Changing http to https solves the problem.
