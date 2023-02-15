@@ -42,6 +42,21 @@ app.use((err, req, res, next) => {
 
 app.use(helmet());
 
+app.use((req, res, next) => {
+  if (
+    process.env.MODE === "production" &&
+    !req.secure &&
+    req.headers["x-forwarded-proto"] !== "https"
+  ) {
+    console.log("forwarding http to https");
+    return res.redirect("https://" + req.headers.host + req.url);
+  } else {
+    console.log(req.secure);
+    console.log(req.protocol);
+    return next();
+  }
+});
+
 // connect and test to PostgreSQL
 connectDB();
 
@@ -83,12 +98,6 @@ app.use(express.urlencoded({ extended: true }));
 // routing
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", MessageRoutes);
-
-// SSL/TLS certificates for HTTPS
-const options = {
-  key: fs.readFileSync("path/to/ssl/key.pem"),
-  cert: fs.readFileSync("path/to/ssl/cert.pem"),
-};
 
 const server = http.createServer(app);
 registerSocketServer(server, sessionMiddleware);
