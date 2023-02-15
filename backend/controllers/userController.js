@@ -5,6 +5,8 @@ import { v4 as uuidv4 } from "uuid";
 
 // an api endpoint that checks if an user is authroized
 const loginUser = async (req, res) => {
+  console.log(req.protocol);
+
   let { email, password } = req.body;
   email = email.toLowerCase();
   try {
