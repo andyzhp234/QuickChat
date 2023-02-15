@@ -15,13 +15,16 @@ export const socketConnectHandler = async (socket) => {
     `userid:${socket.request.session.userId}:socketIds`,
     socket.id
   );
-  // send username to client
-  io.to(socket.id).emit("get-username", {
-    username: socket.request.session.username,
-  });
+
+  console.log(socket.request.session);
+
+  // // send username to client
+  // io.to(socket.id).emit("get-username", {
+  //   username: socket.request.session.username,
+  // });
 
   // fetch datas to client
-  socketGetFriends(socket);
-  socketGetFriendRequets(socket);
-  socketGetGroups(socket);
+  // socketGetFriends(socket);
+  // socketGetFriendRequets(socket);
+  // socketGetGroups(socket);
 };

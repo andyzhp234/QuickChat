@@ -12,28 +12,29 @@ const PublicRoute = ({ children }) => {
   const [isLoading, setIsLoading] = React.useState(null);
 
   React.useEffect(() => {
-    setIsLoading(true);
-    checkIsAuth()
-      .then((res) => {
-        setAuthStatus(true);
-        setIsLoading(false);
-      })
-      .catch(async () => {
-        await dispatch(userLogoutAction());
-        setAuthStatus(false);
-        setIsLoading(false);
-      });
+    // setIsLoading(true);
+    // checkIsAuth()
+    //   .then((res) => {
+    //     setAuthStatus(true);
+    //     setIsLoading(false);
+    //   })
+    //   .catch(async () => {
+    //     await dispatch(userLogoutAction());
+    //     setAuthStatus(false);
+    //     setIsLoading(false);
+    //   });
   }, []);
 
-  if (isLoading || authStatus == null) {
-    return <LoadingPage />;
-  }
+  // if (isLoading || authStatus == null) {
+  //   return <LoadingPage />;
+  // }
 
-  if (authStatus) {
-    return children;
-  } else {
-    return <Navigate to={`/login`} />;
-  }
+  // if (authStatus) {
+  //   return children;
+  // } else {
+  //   return <Navigate to={`/login`} />;
+  // }
+  return children;
 };
 
 export default PublicRoute;

@@ -35,13 +35,14 @@ const registerSocketServer = (server, sessionMiddleware) => {
 
   io.use(wrap(sessionMiddleware));
 
-  io.use((socket, next) => {
-    // Run the socketCheckAuth function before processing the request
-    socketCheckAuth(socket, (error) => {
-      if (error) return next(error);
-      next();
-    });
-  });
+  // Run the socketCheckAuth function before processing the request
+  // io.use((socket, next) => {
+  //   socketCheckAuth(socket, (error) => {
+  //     console.log("");
+  //     if (error) return next(error);
+  //     next();
+  //   });
+  // });
 
   io.on("connection", async (socket) => {
     socketConnectHandler(socket);
