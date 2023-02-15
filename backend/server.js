@@ -18,8 +18,10 @@ const allowedOrigins = [
   "http://127.0.0.1:5173",
   "https://quickchat-app.netlify.app",
 ];
+
 const corsOptions = {
   origin: (origin, callback) => {
+    console.log(origin);
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
