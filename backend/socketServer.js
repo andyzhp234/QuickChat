@@ -44,6 +44,7 @@ const registerSocketServer = (server, sessionMiddleware) => {
   });
 
   io.on("connection", async (socket) => {
+    console.log("WS Connecting...");
     socketConnectHandler(socket);
     socket.on("disconnect", async () => {
       socketDisconnectHandler(socket);
