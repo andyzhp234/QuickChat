@@ -73,20 +73,11 @@ export default function Login() {
           </button>
         </form>
         <AuthNavText
-          description="Need an account? "
+          description="Need an account?"
           navText="Register"
           nav={() => navigate("/register")}
         />
       </AuthBox>
     </div>
   );
-}
-{
-  /* <hr class="mr-4 flex-1 border-t-2 border-gray-400" /> */
-}
-{
-  /* <h2 class="font-bold text-gray-600">or</h2> */
-}
-{
-  /* <hr class="ml-4 flex-1 border-t-2 border-gray-400" /> */
 }
