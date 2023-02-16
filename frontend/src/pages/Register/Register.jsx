@@ -71,7 +71,7 @@ export default function Register() {
             change={(e) => setPassword(e.target.value)}
           />
           <button
-            className="my-4 w-full rounded-3xl bg-green-500 py-4 font-medium text-white duration-200 hover:bg-green-600 lg:py-2"
+            className="my-3 w-full rounded-3xl bg-green-500 py-3 text-sm font-bold text-white duration-200 hover:bg-green-600 lg:py-2"
             type="submit"
           >
             Create
