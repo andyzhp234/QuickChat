@@ -9,7 +9,6 @@ export default function Dashboard() {
   const [openDetailSideBar, setOpenDetailSideBar] = React.useState(false);
 
   React.useEffect(() => {
-    console.log(document.cookie);
     connectWithSocketServer();
   }, []);
 

@@ -38,6 +38,7 @@ const registerSocketServer = (server, sessionMiddleware) => {
   // Run the socketCheckAuth function before processing the request
   io.use((socket, next) => {
     socketCheckAuth(socket, (error) => {
+      console.log(socket.request.session);
       if (error) return next(error);
       next();
     });
