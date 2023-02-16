@@ -5,8 +5,6 @@ import socketGetFriendRequets from "./friend-requests/socketGetFriendRequets.js"
 import socketGetGroups from "./groups/socketGetGroups.js";
 
 export const socketConnectHandler = async (socket) => {
-  console.log(socket.request.session);
-
   // save the socketID to the redis set and mark the current user to true in redis hash.
   await redisClient.hSet(
     `userid:${socket.request.session.userId}`,
@@ -18,13 +16,13 @@ export const socketConnectHandler = async (socket) => {
     socket.id
   );
 
-  // // send username to client
-  // io.to(socket.id).emit("get-username", {
-  //   username: socket.request.session.username,
-  // });
+  // send username to client
+  io.to(socket.id).emit("get-username", {
+    username: socket.request.session.username,
+  });
 
   // fetch datas to client
-  // socketGetFriends(socket);
-  // socketGetFriendRequets(socket);
-  // socketGetGroups(socket);
+  socketGetFriends(socket);
+  socketGetFriendRequets(socket);
+  socketGetGroups(socket);
 };

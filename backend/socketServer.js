@@ -45,42 +45,42 @@ const registerSocketServer = (server, sessionMiddleware) => {
 
   io.on("connection", async (socket) => {
     socketConnectHandler(socket);
-    // socket.on("disconnect", async () => {
-    //   socketDisconnectHandler(socket);
-    // });
-    // socket.on("send-message", (data) => {
-    //   socketSendMessage(socket, data);
-    // });
-    // socket.on("send-friend-request", (data, callback) => {
-    //   socketSendFriendRequest(socket, data, callback);
-    // });
-    // socket.on("accept-friend-request", (data, callback) => {
-    //   socketAcceptFriendRequest(socket, data, callback);
-    // });
-    // socket.on("reject-friend-request", (data, callback) => {
-    //   socketRejectFriendRequest(socket, data, callback);
-    // });
-    // socket.on("create-group-request", (data, callback) => {
-    //   socketCreateGroup(socket, data, callback);
-    // });
-    // socket.on("join-group-request", (data, callback) => {
-    //   socketJoinGroup(socket, data, callback);
-    // });
-    // socket.on("join-video-room", (data, callback) => {
-    //   socketJoinVideoRoom(socket, data, callback);
-    // });
-    // socket.on("leave-video-room", (data) => {
-    //   socketLeaveVideoRoom(socket, data);
-    // });
-    // socket.on("send-rtc-offer", (data) => {
-    //   socketSendOffer(socket, data);
-    // });
-    // socket.on("send-rtc-answer", (data) => {
-    //   socketSendAnswer(socket, data);
-    // });
-    // socket.on("send-ice-candidate", (data) => {
-    //   socketSendCandidates(socket, data);
-    // });
+    socket.on("disconnect", async () => {
+      socketDisconnectHandler(socket);
+    });
+    socket.on("send-message", (data) => {
+      socketSendMessage(socket, data);
+    });
+    socket.on("send-friend-request", (data, callback) => {
+      socketSendFriendRequest(socket, data, callback);
+    });
+    socket.on("accept-friend-request", (data, callback) => {
+      socketAcceptFriendRequest(socket, data, callback);
+    });
+    socket.on("reject-friend-request", (data, callback) => {
+      socketRejectFriendRequest(socket, data, callback);
+    });
+    socket.on("create-group-request", (data, callback) => {
+      socketCreateGroup(socket, data, callback);
+    });
+    socket.on("join-group-request", (data, callback) => {
+      socketJoinGroup(socket, data, callback);
+    });
+    socket.on("join-video-room", (data, callback) => {
+      socketJoinVideoRoom(socket, data, callback);
+    });
+    socket.on("leave-video-room", (data) => {
+      socketLeaveVideoRoom(socket, data);
+    });
+    socket.on("send-rtc-offer", (data) => {
+      socketSendOffer(socket, data);
+    });
+    socket.on("send-rtc-answer", (data) => {
+      socketSendAnswer(socket, data);
+    });
+    socket.on("send-ice-candidate", (data) => {
+      socketSendCandidates(socket, data);
+    });
   });
 };
 
