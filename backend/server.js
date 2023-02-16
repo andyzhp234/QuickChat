@@ -80,7 +80,7 @@ const sessionMiddleware = session({
     maxAge: parseInt(process.env.CK_LIFETIME), // 1 day * 24hr * 60 min * 60 sec
     sameSite: process.env.MODE === "production" ? "none" : "lax",
     secure: process.env.MODE === "production", // only accept if HTTPS in production
-    httpOnly: true,
+    httpOnly: false,
   },
 });
 
