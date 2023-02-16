@@ -28,8 +28,6 @@ const loginUser = async (req, res) => {
       req.session.csrfToken = csrfToken;
       req.session.isAuthenticated = true;
 
-      console.log(req.session.id);
-
       res.status(200).json({ csrfToken });
     } else {
       return res
@@ -91,7 +89,6 @@ const registerUser = async (req, res) => {
 };
 
 const checkUserSession = async (req, res) => {
-  console.log(req.session);
   if (req.session.isAuthenticated) {
     res.status(200).send({ message: "Authorized" });
   } else {

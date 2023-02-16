@@ -60,7 +60,6 @@ export const getChatHistory = async (req, res) => {
     // intented to deliver to chatRoom with conversationId
     return res.status(200).json({ conversationId, messages });
   } catch (error) {
-    console.log(error);
     return res.status(400).send({
       message: "Unable to get chat history. Please try again later",
     });

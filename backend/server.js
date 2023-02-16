@@ -15,8 +15,9 @@ import MessageRoutes from "./routers/messageRoutes.js";
 const app = express();
 
 const allowedOrigins = [
-  "http://127.0.0.1:5173",
-  "https://quickchat-app.netlify.app",
+  // "http://127.0.0.1:5173",
+  // "https://quickchat-app.netlify.app",
+  "https://quick-chat.app",
 ];
 
 // CORS Setting
@@ -78,9 +79,10 @@ const sessionMiddleware = session({
   saveUninitialized: false,
   cookie: {
     maxAge: parseInt(process.env.CK_LIFETIME), // 1 day * 24hr * 60 min * 60 sec
-    sameSite: process.env.MODE === "production" ? "none" : "lax",
+    // sameSite: process.env.MODE === "production" ? "none" : "lax",
+    sameSite: "lax",
     secure: process.env.MODE === "production", // only accept if HTTPS in production
-    httpOnly: false,
+    httpOnly: true,
   },
 });
 

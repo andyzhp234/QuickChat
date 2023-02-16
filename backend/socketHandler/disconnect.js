@@ -6,8 +6,6 @@ import { getSetSize, checkHashIsOnline, getSetMember } from "./socketUtils.js";
 import { Friend } from "../db/models/index.js";
 
 export const socketDisconnectHandler = async (socket) => {
-  console.log("user disconnected: ", socket.request.session);
-
   const userId = socket.request.session.userId;
   try {
     await redisClient.sRem(`user:${userId}:socketIds`, socket.id);

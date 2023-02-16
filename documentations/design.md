@@ -125,3 +125,15 @@
 # spend some time finding http-only cookies, but realized that I can find them in client (broswer) as javascript can't find it.
 
 # Difficulties: Websocket connection is fails on incognition mode. trying to find out why...
+
+# Why should I deploy my website frontend to Netlify instead of having my main server serving the static file that is build from the frontend?
+
+# Netlify offers: Easy site analytics, Globally distributed CDN,
+
+# Why did I deploy my website to railways.app?
+
+# Problem with approach above: If I deployed frontend to netlify and backend to railways.app. The frontend and backend will have different domain name.
+
+# this will leads to issue such as CORS and cookies needs to be set secure: true and sameSite to none. Which is potentially more dangerous.
+
+# Solutions:
