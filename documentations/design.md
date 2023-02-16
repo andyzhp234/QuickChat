@@ -115,3 +115,9 @@
 # This event is happening even when both client and server have https. https://quickchat-production.up.railway.app && https://quickchat-app.netlify.app.
 
 # solution: the requests is send using http, which I don't understand why. Changing http to https solves the problem.
+
+# another difficulties that i encountered during this is that the https requests made from the client always translate to http.
+
+# Which causes the cookies to not being forward and is unsafe to middle man attack. I needs to set "trust proxy" in order to solve the problem
+
+# this is mainly because railway.app sets an proxy infront of my express server.
