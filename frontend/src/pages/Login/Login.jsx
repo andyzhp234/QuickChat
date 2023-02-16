@@ -45,6 +45,7 @@ export default function Login() {
             value={email}
             change={(e) => setEmail(e.target.value)}
           />
+          {`Cookie enable: ${navigator.cookieEnabled}`}
           <AuthInput
             label={"Password"}
             type={"password"}
