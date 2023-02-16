@@ -121,3 +121,7 @@
 # Which causes the cookies to not being forward and is unsafe to middle man attack. I needs to set "trust proxy" in order to solve the problem
 
 # this is mainly because railway.app sets an proxy infront of my express server.
+
+# spend some time finding http-only cookies, but realized that I can find them in client (broswer) as javascript can't find it.
+
+# Difficulties: Websocket connection is fails on incognition mode. trying to find out why...
