@@ -7,12 +7,13 @@ import {
   setChatParticipants,
 } from "../../../../../store/slices/chatSlice";
 import {
-  getChatHistory,
+  getInitialChatHistory,
+  getMoreChatHistory,
   getConversationParticipants,
 } from "../../../../../lib/axios/messageAPIs.js";
 
 export default function MessageWindow({
-  messagesEndRef,
+  messagesRef,
   scrollDown,
   setIsLoading,
 }) {
@@ -25,7 +26,7 @@ export default function MessageWindow({
   React.useEffect(() => {
     const fetchChatDatas = async () => {
       setIsLoading(true);
-      const chatHisotryData = await getChatHistory(conversationId);
+      const chatHisotryData = await getInitialChatHistory(conversationId);
       const chatParticipantsData = await getConversationParticipants(
         conversationId
       );
@@ -35,11 +36,27 @@ export default function MessageWindow({
       scrollDown();
     };
     fetchChatDatas();
-  }, [getChatHistory, conversationId]);
+  }, [getInitialChatHistory, conversationId]);
+
+  async function handleScroll() {
+    let messageCurrRef = messagesRef.current;
+    if (messageCurrRef.scrollTop === 0) {
+      setIsLoading(true);
+      const chatHisotryData = await getMoreChatHistory(
+        conversationId,
+        messages[0].date
+      );
+      const newMessageHeight = messageCurrRef.scrollHeight;
+      await dispatch(setChatHistory(chatHisotryData.data));
+      messageCurrRef.scrollTop = messageCurrRef.scrollHeight - newMessageHeight;
+      setIsLoading(false);
+    }
+  }
 
   return (
     <div
-      ref={messagesEndRef}
+      ref={messagesRef}
+      onScroll={handleScroll}
       className="antiscroll-inner h-full-16 w-full overflow-y-auto pb-24"
     >
       {messages.map((message) =>

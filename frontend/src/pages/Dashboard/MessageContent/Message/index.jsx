@@ -6,13 +6,13 @@ import LoadingModal from "../../../../components/LoadingModal";
 import VideoWindow from "../../../../components/VideoWindow";
 
 export default function Message() {
-  const messagesEndRef = React.useRef(null);
+  const messagesRef = React.useRef(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const videoCallingInfo = useSelector((state) => state.chatRoom.videoCalling);
 
   const scrollDown = () => {
-    messagesEndRef.current.scrollTo({
-      top: messagesEndRef.current.scrollHeight,
+    messagesRef.current.scrollTo({
+      top: messagesRef.current.scrollHeight,
       behavior: "smooth",
     });
   };
@@ -23,7 +23,7 @@ export default function Message() {
       {videoCallingInfo.isCalling ? <VideoWindow /> : null}
       <div className="relative flex h-full w-full">
         <MessageWindow
-          messagesEndRef={messagesEndRef}
+          messagesRef={messagesRef}
           scrollDown={scrollDown}
           setIsLoading={setIsLoading}
         />

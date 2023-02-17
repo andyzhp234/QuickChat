@@ -67,7 +67,13 @@ export const chatSlice = createSlice({
             state.messageIdsHashTable[message.id] = true;
           }
         }
-        state.messages.sort((a, b) => a.date < b.date);
+        state.messages.sort((a, b) => {
+          if (a.date < b.date) {
+            return -1;
+          } else {
+            return 1;
+          }
+        });
       }
     },
     setChatParticipants: (state, action) => {
