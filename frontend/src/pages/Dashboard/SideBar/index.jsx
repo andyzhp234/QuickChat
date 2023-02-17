@@ -17,7 +17,7 @@ export default function Sidebar({ openSideBar, setOpenSideBar }) {
     >
       {openSideBar ? (
         <img
-          className="mt-2 self-start lg:hidden"
+          className="mt-2 h-8 w-8 self-start lg:hidden"
           src={IconClose}
           alt="mobile close sidebar"
           onClick={() => setOpenSideBar((prev) => !prev)}

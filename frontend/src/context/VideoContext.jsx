@@ -150,6 +150,17 @@ export const VideoProvider = ({ children }) => {
         audio: true,
         video: true,
       });
+
+      stream.getTracks().forEach((track) => {
+        if (track.kind === "audio") {
+          track.enabled = false;
+          setAudioOn(false);
+        } else if (track.kind === "video") {
+          track.enabled = false;
+          setVideoOn(false);
+        }
+      });
+
       newLocalStream = stream;
       setLocalStream(stream);
     } else {
@@ -168,9 +179,6 @@ export const VideoProvider = ({ children }) => {
 
     // add local Streams to Peer Connection
     newLocalStream.getTracks().forEach((track) => {
-      if (track.kind === "audio" || track.kind === "video") {
-        track.enabled = false;
-      }
       newPeerConnection.addTrack(track, newLocalStream);
     });
 

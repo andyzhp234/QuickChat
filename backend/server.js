@@ -31,6 +31,7 @@ const corsOptions = {
   },
   credentials: true,
 };
+
 app.use(cors(corsOptions));
 app.use((err, req, res, next) => {
   if (err instanceof Error && err.message === "Not allowed by CORS") {
@@ -79,7 +80,6 @@ const sessionMiddleware = session({
   saveUninitialized: false,
   cookie: {
     maxAge: parseInt(process.env.CK_LIFETIME), // 1 day * 24hr * 60 min * 60 sec
-    // sameSite: process.env.MODE === "production" ? "none" : "lax",
     sameSite: "lax",
     secure: process.env.MODE === "production", // only accept if HTTPS in production
     httpOnly: true,

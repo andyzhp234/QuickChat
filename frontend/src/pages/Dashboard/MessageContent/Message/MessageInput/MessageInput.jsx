@@ -36,7 +36,7 @@ export default function MessageInput({ scrollDown }) {
           onChange={(e) => setMessageText(e.target.value)}
         />
         <img
-          className="cursor-pointer"
+          className="h-8 w-8 cursor-pointer"
           onClick={sendMessageHandler}
           src={IconSendMessage}
           alt={"send-message"}

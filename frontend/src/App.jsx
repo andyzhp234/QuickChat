@@ -8,13 +8,14 @@ import Register from "./pages/Register/Register";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import { VideoProvider } from "./context/VideoContext";
 import LandingPage from "./pages/LandingPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="" element={<LandingPage />} />
-        <Route path="*" element={<LandingPage />} />
+        <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<PublicRoute children={<Login />} />} />
         <Route
           path="/register"

@@ -22,7 +22,9 @@ export default function FullScreenWindow({
       <div className="relative flex h-full w-full flex-col overflow-y-hidden">
         <div className="antiscroll-inner relative flex h-full w-full flex-wrap items-center justify-center overflow-y-auto">
           <VideoPlayer stream={stream} />
-          {remoteStream ? <VideoPlayer stream={remoteStream} /> : null}
+          {remoteStream ? (
+            <VideoPlayer stream={remoteStream} isRemote={true} />
+          ) : null}
         </div>
         <VideoControls
           stream={stream}
