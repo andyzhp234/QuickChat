@@ -15,7 +15,7 @@ import MessageRoutes from "./routers/messageRoutes.js";
 const app = express();
 
 const allowedOrigins = [
-  // "http://127.0.0.1:5173",
+  "http://127.0.0.1:5173",
   // "https://quickchat-app.netlify.app",
   "https://quick-chat.app",
 ];
@@ -23,7 +23,7 @@ const allowedOrigins = [
 // CORS Setting
 const corsOptions = {
   origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
@@ -33,24 +33,24 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use((err, req, res, next) => {
-  if (err instanceof Error && err.message === "Not allowed by CORS") {
-    res.status(403).json({ error: "CORS not allowed" });
-  } else {
-    next();
-  }
-});
+// app.use((err, req, res, next) => {
+//   if (err instanceof Error && err.message === "Not allowed by CORS") {
+//     res.status(403).json({ error: "CORS not allowed" });
+//   } else {
+//     next();
+//   }
+// });
 
 // enable trust proxy as railway.app have a proxy in front of our express server.
-app.set("trust proxy", 1);
+// app.set("trust proxy", 1);
 
 // enforce HTTPS
-app.use((req, res, next) => {
-  if (!req.secure) {
-    return res.redirect("https://" + req.headers.host + req.url);
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   if (!req.secure) {
+//     return res.redirect("https://" + req.headers.host + req.url);
+//   }
+//   next();
+// });
 
 app.use(helmet());
 

@@ -9,10 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emoji-mart/data": "^1.1.2",
+    "@emoji-mart/react": "^1.1.1",
     "@reduxjs/toolkit": "^1.9.1",
     "axios": "^1.2.3",
     "boring-avatars": "^1.7.0",
     "create-vite": "^4.0.0",
+    "emoji-mart": "^5.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",

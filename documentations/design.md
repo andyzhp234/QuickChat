@@ -139,3 +139,7 @@
 # Solutions:
 
 # CSS questions that i learned from this project: 100vh don't work properly in mobile device. We need js to work around.
+
+# Rate limiter is implement using Redis
+
+# Features That I Want to add: File Sharing, Custom Icon, Facetime Icon on AppBar

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = `https://api.quick-chat.app`;
+// axios.defaults.baseURL = `https://api.quick-chat.app`;
 
 export async function getChatHistory(conversationId) {
   return await axios.get(`/api/messages/chat-history/${conversationId}`);

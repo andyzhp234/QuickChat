@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import LogoutIcon from "../../../../assets/icon-logout.png";
 import { userLogoutAction } from "../../../../store/actions/apiUserActions";
 

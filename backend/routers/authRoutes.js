@@ -7,6 +7,7 @@ import {
   userLogout,
 } from "../controllers/userController.js";
 import schemaValidator from "../middlewares/schemaValidator.js";
+import rateLimiter from "../middlewares/rateLimiter.js";
 
 const router = express.Router();
 
@@ -22,8 +23,13 @@ const loginSchema = Joi.object({
 });
 
 router.get("/checkAuth", checkUserSession);
-router.post("/register", schemaValidator(registerSchema), registerUser);
-router.post("/login", schemaValidator(loginSchema), loginUser);
+router.post(
+  "/register",
+  // rateLimiter,
+  schemaValidator(registerSchema),
+  registerUser
+);
+router.post("/login", rateLimiter(), schemaValidator(loginSchema), loginUser);
 router.post("/logout", userLogout);
 
 export default router;

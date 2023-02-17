@@ -43,3 +43,24 @@ export const sendSocketMessageToUser = async (userId, socketLocation, data) => {
     io.to(socketId).emit(socketLocation, data);
   }
 };
+
+export const rateLimiterIncrementKey = async (key) => {
+  return new Promise((resolve, reject) => {
+    redisClient.incr(key, (err, count) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(count);
+      }
+    });
+  });
+};
+
+export const rateLimiterSetExpire = async (key) => {
+  return await new Promise((resolve, reject) => {
+    redisClient.expire(key, 60, (err) => {
+      if (err) reject(err);
+      resolve();
+    });
+  });
+};
