@@ -197,10 +197,8 @@ export const VideoProvider = ({ children }) => {
 
   // this function is called when the user is the initiator
   let createOffer = async () => {
-    console.log("Creating an Offer. Broadcasting it...");
     // create the peerConnection Object
     let pc = await localStreamRef.current();
-    // let pc = await createPeerConnection();
     let offer = await pc.createOffer();
     await pc.setLocalDescription(offer);
     setPeerConnection(pc);
@@ -216,9 +214,6 @@ export const VideoProvider = ({ children }) => {
     let { senderSocketId, offer } = data;
     if (senderSocketId === socket.id) return;
 
-    console.log("received an Offer! Creating an Answer and sending it back!");
-
-    // let pc = await createPeerConnection();
     let pc = await localStreamRef.current();
     await pc.setRemoteDescription(offer);
     let answer = await pc.createAnswer();
@@ -231,9 +226,6 @@ export const VideoProvider = ({ children }) => {
 
   // this function is called when the initiator's offer got an answer
   let addAnswer = async (data) => {
-    console.log(
-      "received an Answer! Adding remote Description and connection established!!!"
-    );
     let { answer } = data;
     if (!peerConnection.currentRemoteDescription) {
       peerConnection.setRemoteDescription(answer);

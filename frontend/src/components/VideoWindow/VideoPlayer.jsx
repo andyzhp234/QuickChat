@@ -7,10 +7,6 @@ export default function VideoPlayer({ stream, isRemote = false }) {
     ?.getTracks()
     .find((track) => track.kind === "video").enabled;
 
-  if (isRemote) {
-    console.log("Received remote Stream: ", stream);
-  }
-
   React.useEffect(() => {
     if (videoRef.current) {
       videoRef.current.srcObject = stream;
@@ -22,7 +18,6 @@ export default function VideoPlayer({ stream, isRemote = false }) {
   return (
     <div className="relative m-2 flex min-h-24 min-w-24 justify-center overflow-hidden rounded-xl border-2 border-slate-600">
       <video className="z-20" ref={videoRef} autoPlay playsInline />
-
       {stream ? (
         !videoOn ? (
           <div className="absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2 text-lg font-semibold text-white">

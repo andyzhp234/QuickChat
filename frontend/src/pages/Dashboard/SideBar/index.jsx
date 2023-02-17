@@ -11,7 +11,7 @@ export default function Sidebar({ openSideBar, setOpenSideBar }) {
 
   return (
     <div
-      className={` absolute z-20 flex h-full w-96 transition duration-300 ease-in-out ${
+      className={` absolute z-20 flex h-full w-80 transition duration-300 ease-in-out ${
         openSideBar ? "translate-x-0" : "-translate-x-96"
       } flex-col items-center border-r border-gray-300 bg-neutral-100 px-4 lg:static lg:-translate-x-0`}
     >
