@@ -1,4 +1,5 @@
 import { literal } from "sequelize";
+import { Op } from "sequelize";
 import {
   User,
   Message,
@@ -9,6 +10,9 @@ import {
 export const getChatHistory = async (req, res) => {
   const conversationId = req.params.conversationId;
   const userId = req.session.userId;
+  const topMessageTime = req.query.topMessageTime || Date.now();
+  const pageSize = 10;
+
   try {
     // find the conversation Room with converstaionID
     // and use join to make sure the user is an participant of this conversation
@@ -33,6 +37,7 @@ export const getChatHistory = async (req, res) => {
         message: "Unable to find the conversations",
       });
     }
+
     // if we find all the old messages
     let messages = await Message.findAll({
       include: [
@@ -43,7 +48,12 @@ export const getChatHistory = async (req, res) => {
           attributes: ["username"],
         },
       ],
-      where: { conversationId: conversationId },
+      where: {
+        conversationId: conversationId,
+        createdAt: {
+          [Op.lt]: topMessageTime,
+        },
+      },
       attributes: [
         "id",
         "content",
@@ -55,10 +65,14 @@ export const getChatHistory = async (req, res) => {
           "isSentByMe",
         ],
       ],
+      order: [["date", "DESC"]],
+      limit: pageSize,
     });
 
     // intented to deliver to chatRoom with conversationId
-    return res.status(200).json({ conversationId, messages });
+    return res
+      .status(200)
+      .json({ conversationId, messages: messages.reverse() });
   } catch (error) {
     return res.status(400).send({
       message: "Unable to get chat history. Please try again later",

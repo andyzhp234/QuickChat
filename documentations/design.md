@@ -142,4 +142,8 @@
 
 # Rate limiter is implement using Redis
 
-# Features That I Want to add: File Sharing, Custom Icon, Facetime Icon on AppBar
+# Backend message paginations is done.
+
+# Features That I Want to add: File Sharing (the ability to send images) & Custom Icon (might need to set up AWS S3 bucket for this)
+
+# On typing funcitonalties
