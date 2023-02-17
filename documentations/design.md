@@ -137,3 +137,5 @@
 # this will leads to issue such as CORS and cookies needs to be set secure: true and sameSite to none. Which is potentially more dangerous.
 
 # Solutions:
+
+# CSS questions that i learned from this project: 100vh don't work properly in mobile device. We need js to work around.

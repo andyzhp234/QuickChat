@@ -9,7 +9,7 @@ export default function AppBar({ setOpenSideBar, setOpenDetailSideBar }) {
   );
 
   return (
-    <div className="sticky flex h-16 w-full items-center justify-between border-b border-gray-300 bg-white p-2 text-sm font-semibold md:p-4 md:text-lg">
+    <div className="sticky flex h-16 w-full items-center justify-between border-b border-gray-300 bg-white p-3 text-sm font-semibold md:p-4 md:text-lg">
       <img
         className="lg:hidden"
         src={IconVerticalMenu}
