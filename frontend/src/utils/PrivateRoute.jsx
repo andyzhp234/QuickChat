@@ -13,12 +13,15 @@ const PublicRoute = ({ children }) => {
 
   React.useEffect(() => {
     setIsLoading(true);
+    console.log("checking private auth");
     checkIsAuth()
       .then((res) => {
+        console.log("checking private auth ends");
         setAuthStatus(true);
         setIsLoading(false);
       })
       .catch(async () => {
+        console.log("checking private auth ends & errors");
         await dispatch(userLogoutAction());
         setAuthStatus(false);
         setIsLoading(false);

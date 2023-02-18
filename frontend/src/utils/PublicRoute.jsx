@@ -9,12 +9,15 @@ const PublicRoute = ({ children }) => {
 
   React.useEffect(() => {
     setIsLoading(true);
+    console.log("checking public auth");
     checkIsAuth()
       .then((req) => {
+        console.log("checking public auth ends");
         setAuthStatus(true);
         setIsLoading(false);
       })
       .catch(() => {
+        console.log("checking public auth ends & errors");
         setAuthStatus(false);
         setIsLoading(false);
       });
