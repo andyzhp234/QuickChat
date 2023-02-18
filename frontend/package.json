@@ -20,7 +20,6 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.7.0",
-    "simple-peer": "^9.11.1",
     "socket.io-client": "^4.5.4"
   },
   "devDependencies": {

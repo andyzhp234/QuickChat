@@ -12,11 +12,11 @@ async function loginAPI(data) {
 }
 
 async function registerAPI(data) {
-  return await axios.post("api/auth/register", data);
+  return await axios.post("/api/auth/register", data);
 }
 
 async function logoutAPI() {
-  return await axios.post("api/auth/logout");
+  return await axios.post("/api/auth/logout");
 }
 
 export { loginAPI, registerAPI, checkIsAuth, logoutAPI };

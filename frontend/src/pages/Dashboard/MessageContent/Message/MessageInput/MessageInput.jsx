@@ -28,7 +28,7 @@ export default function MessageInput({ scrollDown }) {
 
   return (
     <form
-      className="absolute bottom-10 left-1/2 z-10 h-12 w-11/12 -translate-x-1/2 transform"
+      className="absolute bottom-16 left-1/2 z-10 h-12 w-11/12 -translate-x-1/2 transform"
       onSubmit={sendMessageHandler}
     >
       {openDropdown ? <EmojiDropdown setMessageText={setMessageText} /> : null}
