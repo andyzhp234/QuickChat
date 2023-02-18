@@ -51,5 +51,5 @@ html {
 }
 
 .h-full-16 {
-  height: calc(100vh - 4rem);
+  height: calc(100vh - 64px);
 }

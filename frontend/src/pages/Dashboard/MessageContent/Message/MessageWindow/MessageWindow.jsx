@@ -17,6 +17,7 @@ export default function MessageWindow({
   scrollDown,
   setIsLoading,
 }) {
+  const [height, setHeight] = React.useState(window.innerHeight - 64);
   const dispatch = useDispatch();
   const conversationId = useSelector(
     (state) => state.chatRoom.chosenChatDetails.conversationId
@@ -53,19 +54,29 @@ export default function MessageWindow({
     }
   }
 
+  React.useEffect(() => {
+    function handleResize() {
+      setHeight(window.innerHeight - 64);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div
       ref={messagesRef}
       onScroll={handleScroll}
-      className="antiscroll-inner h-full-16 w-full overflow-y-auto pb-28"
+      className="antiscroll-inner w-full overflow-y-auto pb-20"
+      style={{ height: height }}
     >
-      {/* {messages.map((message) =>
+      {messages.map((message) =>
         message.isSentByMe ? (
           <MessageSentByMe key={message.id} data={message} />
         ) : (
           <MessageSentByOthers key={message.id} data={message} />
         )
-      )} */}
+      )}
     </div>
   );
 }
