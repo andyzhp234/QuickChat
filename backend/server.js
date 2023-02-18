@@ -15,7 +15,7 @@ import MessageRoutes from "./routers/messageRoutes.js";
 const app = express();
 
 const allowedOrigins = [
-  // "http://127.0.0.1:5173",
+  "http://127.0.0.1:5173",
   // "https://quickchat-app.netlify.app",
   "https://quick-chat.app",
 ];
@@ -23,7 +23,10 @@ const allowedOrigins = [
 // CORS Setting
 const corsOptions = {
   origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin)) {
+    if (
+      (process.env.MODE === "development" && !origin) ||
+      allowedOrigins.includes(origin)
+    ) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));

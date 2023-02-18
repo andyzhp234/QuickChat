@@ -59,13 +59,13 @@ export default function MessageWindow({
       onScroll={handleScroll}
       className="antiscroll-inner h-full-16 w-full overflow-y-auto pb-28"
     >
-      {messages.map((message) =>
+      {/* {messages.map((message) =>
         message.isSentByMe ? (
           <MessageSentByMe key={message.id} data={message} />
         ) : (
           <MessageSentByOthers key={message.id} data={message} />
         )
-      )}
+      )} */}
     </div>
   );
 }

@@ -9,7 +9,6 @@ const PublicRoute = ({ children }) => {
 
   React.useEffect(() => {
     setIsLoading(true);
-    console.log("checking public auth");
     checkIsAuth()
       .then((req) => {
         setAuthStatus(true);

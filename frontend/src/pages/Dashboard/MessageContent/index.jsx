@@ -13,7 +13,7 @@ export default function MessageContent({
   );
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex h-full w-full flex-col">
       <AppBar
         setOpenSideBar={setOpenSideBar}
         setOpenDetailSideBar={setOpenDetailSideBar}
