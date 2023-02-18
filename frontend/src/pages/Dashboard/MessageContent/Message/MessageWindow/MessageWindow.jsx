@@ -57,7 +57,7 @@ export default function MessageWindow({
     <div
       ref={messagesRef}
       onScroll={handleScroll}
-      className="antiscroll-inner h-full-16 w-full overflow-y-auto pb-24"
+      className="antiscroll-inner h-full-16 w-full overflow-y-auto pb-28"
     >
       {messages.map((message) =>
         message.isSentByMe ? (
