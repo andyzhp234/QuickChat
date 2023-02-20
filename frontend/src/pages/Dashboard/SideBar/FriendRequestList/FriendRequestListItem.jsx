@@ -1,7 +1,7 @@
 import React from "react";
 import Avatar from "../../../../components/Avatar";
-import checkIcon from "../../../../assets/icon-check.png";
-import unCheckIcon from "../../../../assets/icon-uncheck.png";
+import checkIcon from "../../../../assets/icons/icon-check.png";
+import unCheckIcon from "../../../../assets/icons/icon-uncheck.png";
 import { useDispatch } from "react-redux";
 import { deleteFriendRequests } from "../../../../store/slices/friendsSlice";
 import {

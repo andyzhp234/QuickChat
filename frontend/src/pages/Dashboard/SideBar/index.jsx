@@ -4,7 +4,7 @@ import FriendList from "./FriendList/FriendList";
 import GroupList from "./GroupList/GroupList";
 import FriendRequestList from "./FriendRequestList/FriendRequestList";
 import UserStatus from "./UserStatus/UserStatus";
-import IconClose from "../../../assets/icon-uncheck.png";
+import IconClose from "../../../assets/icons/icon-uncheck.png";
 
 export default function Sidebar({ openSideBar, setOpenSideBar }) {
   const [activeIndex, setActiveIndex] = React.useState(0);

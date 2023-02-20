@@ -1,5 +1,5 @@
 import React from "react";
-import BrandLogo from "../../assets/brand-logo.png";
+import BrandLogo from "../../assets/icons/brand-logo.png";
 import { useNavigate } from "react-router-dom";
 
 export default function AuthBox({ children }) {
@@ -15,7 +15,7 @@ export default function AuthBox({ children }) {
       <div className="items flex h-screen w-full max-w-lg flex-col justify-center p-7 lg:h-fit lg:w-1/2 lg:p-24">
         {children}
       </div>
-      <div className="hidden flex-col items-center justify-center bg-[url('../assets/bg-snowy-mint.jpg')] bg-cover p-10 lg:flex  lg:w-1/2">
+      <div className="hidden flex-col items-center justify-center bg-[url('../assets/images/bg-snowy-mint.jpg')] bg-cover p-10 lg:flex  lg:w-1/2">
         <h1 className="my-2 text-4xl font-semibold">
           Connect with ease, Chat with confidence
         </h1>

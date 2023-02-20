@@ -1,5 +1,5 @@
 import React from "react";
-import FullScreenIcon from "../../assets/icon-full-screen.png";
+import FullScreenIcon from "../../assets/icons/icon-full-screen.png";
 import VideoPlayer from "./VideoPlayer";
 
 export default function MinimizedWindow({ setMinimizeScreen, stream }) {

@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { sendMessage } from "../../../../../socketClient/socketController/messages/messages";
-import IconSendMessage from "../../../../../assets/icon-send.png";
-import IconOpenEmoji from "../../../../../assets/icon-smile-face.png";
+import IconSendMessage from "../../../../../assets/icons/icon-send.png";
+import IconOpenEmoji from "../../../../../assets/icons/icon-smile-face.png";
 import EmojiDropdown from "./EmojiDropdown";
 
 export default function MessageInput({ scrollDown }) {
