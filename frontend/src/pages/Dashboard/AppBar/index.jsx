@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import IconVerticalMenu from "../../../assets/icon-vertical-menu.png";
-import IconAbout from "../../../assets/icon-about.png";
-import IconVideoCall from "../../../assets/icon-video-call.png";
+import IconVerticalMenu from "../../../assets/icons/icon-more-vert.png";
+import IconAbout from "../../../assets/icons/icon-about.png";
+import IconVideoCall from "../../../assets/icons/icon-video-call.png";
 
 export default function AppBar({ setOpenSideBar, setOpenDetailSideBar }) {
   const chosenChatDetails = useSelector(

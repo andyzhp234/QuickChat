@@ -3,7 +3,7 @@
   <br/>
   <br/>
   <br/>
-  <img src="./frontend/src/assets/brand-logo.png" alt="Logo" width="200">
+  <img src="./frontend/src/assets/icons/brand-logo.png" alt="Logo" width="200">
   <br/>
   <br/>
   <br/>

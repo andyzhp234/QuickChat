@@ -2,7 +2,7 @@ import React from "react";
 import Avatar from "../../../../components/Avatar";
 import OnlineIndicater from "../../../../components/OnlineIndicater/OnlineIndicater";
 import { useSelector } from "react-redux";
-import DropdownIcon from "../../../../assets/icon-ellipsis.png";
+import DropdownIcon from "../../../../assets/icons/icon-more-horiz.png";
 import UserDropdownMenu from "./UserDropdownMenu";
 
 export default function UserStatus() {

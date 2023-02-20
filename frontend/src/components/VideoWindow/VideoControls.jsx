@@ -1,10 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { setVideoCalling } from "../../store/slices/chatSlice";
-import ShareScreenIcon from "../../assets/icon-share-screen.png";
-import MicroPhoneIcon from "../../assets/icon-microphone.png";
-import HangupIcon from "../../assets/icon-hangup.png";
-import ShareVideoIcon from "../../assets/icon-video-call-white.png";
+import ShareScreenIcon from "../../assets/icons/icon-share-screen.png";
+import MicroPhoneIcon from "../../assets/icons/icon-microphone.png";
+import HangupIcon from "../../assets/icons/icon-hangup.png";
+import ShareVideoIcon from "../../assets/icons/icon-video-call-white.png";
 
 export default function VideoControls({
   stream,

@@ -1,5 +1,5 @@
 import React from "react";
-import MinimizeScreenIcon from "../../assets/icon-minimize-screen.png";
+import MinimizeScreenIcon from "../../assets/icons/icon-minimize-screen.png";
 
 export default function MinimizeScreenButton({ setMinimizeScreen }) {
   return (

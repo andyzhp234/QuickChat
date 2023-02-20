@@ -1,6 +1,6 @@
 import React from "react";
-import AddIcon from "../../assets/icon-add.png";
-import JoinIcon from "../../assets/icon-join.png";
+import AddIcon from "../../assets/icons/icon-add.png";
+import JoinIcon from "../../assets/icons/icon-group-add.png";
 
 export default function AddFriendsOrGroupsButton({ text, onClick, join }) {
   return (

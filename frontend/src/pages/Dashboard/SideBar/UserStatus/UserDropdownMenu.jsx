@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import LogoutIcon from "../../../../assets/icon-logout.png";
+import LogoutIcon from "../../../../assets/icons/icon-logout.png";
 import { userLogoutAction } from "../../../../store/actions/apiUserActions";
 
 export default function UserDropdownMenu() {

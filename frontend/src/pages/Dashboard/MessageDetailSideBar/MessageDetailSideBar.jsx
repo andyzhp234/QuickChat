@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Participant from "./Participant";
-import IconUnCheck from "../../../assets/icon-uncheck.png";
-import IconVideoCall from "../../../assets/icon-video-call.png";
+import IconUnCheck from "../../../assets/icons/icon-uncheck.png";
+import IconVideoCall from "../../../assets/icons/icon-video-call.png";
 import Avatar from "../../../components/Avatar";
 import { setVideoCalling } from "../../../store/slices/chatSlice";
 
