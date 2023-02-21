@@ -44,7 +44,7 @@ app.use((err, req, res, next) => {
   }
 });
 
-enable trust proxy as railway.app have a proxy in front of our express server.
+// enable trust proxy as railway.app have a proxy in front of our express server.
 app.set("trust proxy", 1);
 
 // enforce HTTPS
