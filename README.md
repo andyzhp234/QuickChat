@@ -16,7 +16,7 @@ Quickchat is a chat application that allows users to connect and communicate in 
 
 Project's backend is currently offline until I finished the privacy policy & Terms of Services & Cookie consent stuff.
 
-Project is live on [quick-chat.app](https://quick-chat.app/)
+~~Project is live on [quick-chat.app](https://quick-chat.app/)~~
 
 ## Documents
 
