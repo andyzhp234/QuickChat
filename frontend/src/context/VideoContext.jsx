@@ -85,6 +85,11 @@ export const VideoProvider = ({ children }) => {
           let videoTrack = stream
             .getTracks()
             .find((track) => track.kind === "video");
+
+          if (!videoOn) {
+            videoTrack.enabled = false;
+          }
+
           peerConnection
             .getSenders()
             .find((sender) => sender.track.kind === "video")

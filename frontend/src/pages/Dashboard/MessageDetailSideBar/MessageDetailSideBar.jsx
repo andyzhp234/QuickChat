@@ -35,7 +35,7 @@ export default function MessageDetailSideBar({
       <div className="mb-5 flex w-full items-center justify-between">
         <h1 className="font-semibold">Conversation Detail</h1>
         <img
-          className="h-5 w-5 cursor-pointer"
+          className="h-7 w-7 cursor-pointer"
           src={IconUnCheck}
           alt="close messageDetail sidebar"
           onClick={() => setOpenDetailSideBar((prev) => !prev)}

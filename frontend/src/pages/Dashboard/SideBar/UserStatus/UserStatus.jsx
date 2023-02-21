@@ -19,7 +19,7 @@ export default function UserStatus() {
         </div>
       </div>
       <img
-        className="ml-auto h-5 w-5 cursor-pointer duration-100"
+        className="ml-auto h-7 w-7 cursor-pointer duration-100"
         src={DropdownIcon}
         onClick={() => setOpenDropDown((prev) => !prev)}
       />

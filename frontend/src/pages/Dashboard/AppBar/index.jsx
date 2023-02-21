@@ -35,7 +35,7 @@ export default function AppBar({ setOpenSideBar, setOpenDetailSideBar }) {
           />
         ) : (
           <img
-            className="h-8 w-8 cursor-pointer"
+            className="h-7 w-7 cursor-pointer"
             src={IconAbout}
             alt="close ChatDetail sidebar"
             onClick={() => setOpenDetailSideBar((prev) => !prev)}

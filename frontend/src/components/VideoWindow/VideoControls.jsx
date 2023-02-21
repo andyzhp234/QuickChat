@@ -32,7 +32,7 @@ export default function VideoControls({
     <div className="flex h-20 w-full items-center justify-center">
       <img
         className={`m-2 h-12 w-12 cursor-pointer rounded-full ${
-          isSharingScreen ? "bg-red-500" : "bg-green-500"
+          isSharingScreen ? "bg-green-500" : "bg-red-500"
         } p-2`}
         src={ShareScreenIcon}
         onClick={shareScreen}

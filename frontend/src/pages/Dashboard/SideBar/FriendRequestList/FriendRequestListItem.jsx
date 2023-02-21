@@ -39,13 +39,13 @@ export default function FriendRequestListItem({ id, username }) {
       <Avatar username={username} />
       <div className="px-2 font-semibold">{username}</div>
       <img
-        className=" ml-auto h-4 w-4 cursor-pointer rounded-full duration-100 ease-in-out hover:h-5 hover:w-5"
+        className=" ml-auto h-6 w-6 cursor-pointer rounded-full duration-100 ease-in-out hover:h-7 hover:w-7"
         src={checkIcon}
         alt="accept friend request button"
         onClick={acceptFriendRequestHandler}
       />
       <img
-        className="ml-3 h-4 w-4 cursor-pointer duration-100 ease-in-out hover:h-5 hover:w-5"
+        className="ml-3 h-6 w-6 cursor-pointer duration-100 ease-in-out hover:h-7 hover:w-7"
         src={unCheckIcon}
         alt="decline friend request button"
         onClick={rejectFriendRequestHandler}
