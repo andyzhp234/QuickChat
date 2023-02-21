@@ -45,15 +45,15 @@ app.use((err, req, res, next) => {
 });
 
 // enable trust proxy as railway.app have a proxy in front of our express server.
-// app.set("trust proxy", 1);
+app.set("trust proxy", 1);
 
-// // enforce HTTPS
-// app.use((req, res, next) => {
-//   if (!req.secure) {
-//     return res.redirect("https://" + req.headers.host + req.url);
-//   }
-//   next();
-// });
+// enforce HTTPS
+app.use((req, res, next) => {
+  if (!req.secure) {
+    return res.redirect("https://" + req.headers.host + req.url);
+  }
+  next();
+});
 
 app.use(helmet());
 
