@@ -86,8 +86,16 @@ export const VideoProvider = ({ children }) => {
             .getTracks()
             .find((track) => track.kind === "video");
 
+          let audioTrack = stream
+            .getTracks()
+            .find((track) => track.kind === "audio");
+
           if (!videoOn) {
             videoTrack.enabled = false;
+          }
+
+          if (!audioOn) {
+            audioTrack.enabled = false;
           }
 
           peerConnection
