@@ -27,7 +27,7 @@ export default function UserDropdownMenu() {
         className="flex cursor-pointer items-center overflow-hidden px-6 py-3 text-sm text-gray-700 duration-150 hover:bg-gray-200"
         onClick={userLogoutHandler}
       >
-        <img className="h-5 w-5" src={LogoutIcon} alt="dropdown" />
+        <img className="h-6 w-6" src={LogoutIcon} alt="dropdown" />
         <h1 className="ml-2 font-semibold">Logout</h1>
       </div>
     </div>

@@ -9,9 +9,9 @@ export default function AddFriendsOrGroupsButton({ text, onClick, join }) {
       onClick={onClick}
     >
       {join ? (
-        <img src={JoinIcon} alt="join" />
+        <img className="h-8 w-8" src={JoinIcon} alt="join" />
       ) : (
-        <img src={AddIcon} alt="add" />
+        <img className="h-8 w-8" src={AddIcon} alt="add" />
       )}
       <h1 className="ml-3 font-medium">{text}</h1>
     </div>
