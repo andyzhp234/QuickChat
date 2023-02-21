@@ -94,3 +94,4 @@ Design Documentations can be found [here](./documentations).
 - Allowing users to upload their avatar
 - Voice messages
 - Chatbot intergrations
+- Add Accept Cookie Modal
