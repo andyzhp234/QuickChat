@@ -155,3 +155,5 @@ Solutions: use javascript to calculate the window.innerHeight
 Attributions: Icon used from icon8.com
 
 Icon: Made using Canva
+
+WebRTC is not working in production: reason -> not mute at first.

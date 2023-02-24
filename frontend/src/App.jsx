@@ -9,12 +9,16 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import { VideoProvider } from "./context/VideoContext";
 import LandingPage from "./pages/LandingPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import TermsOfServices from "./pages/TermsOfServices";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="" element={<LandingPage />} />
+        <Route path="/legal" element={<TermsOfServices />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<PublicRoute children={<Login />} />} />
         <Route
