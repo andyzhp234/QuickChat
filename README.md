@@ -45,7 +45,7 @@ Design Documentations can be found [here](./documentations).
 - Avatar
 - Rate Limiter
 - Screen sharing
-- Firends list
+- Friends list
 - Group Chat All Participants info
 - Friend Requests
 
