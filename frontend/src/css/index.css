@@ -53,3 +53,18 @@ html {
 .h-full-16 {
   height: calc(100vh - 64px);
 }
+
+.fade-up {
+  animation: fadeInUp 1s forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
