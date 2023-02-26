@@ -17,7 +17,7 @@ const app = express();
 const allowedOrigins = [
   // "http://127.0.0.1:5173",
   // "https://quickchat-app.netlify.app",
-  // "https://quick-chat.app",
+  "https://quick-chat.app",
 ];
 
 // CORS Setting
