@@ -2,7 +2,7 @@ import React from "react";
 
 export default function PrivacyPolicy() {
   return (
-    <div className="py-10 px-20">
+    <div className="p-10">
       <h1 className="py-5 text-6xl">Privacy Policy</h1>
       <h2 className="py-1">Last updated: February 25, 2023</h2>
       <h2 className="py-1">
