@@ -320,6 +320,8 @@ export default function TermsOfServices() {
         but not limited to removing the offending content and/or terminating the
         account without prior notice.
       </p>
+      <h1 className="py-2 text-4xl font-semibold">Copyright Notice</h1>
+      <p>Copyright © 2023 Haopeng Zeng. All rights reserved.</p>
       <h1 className="py-2 text-4xl font-semibold">Contact Us</h1>
       <p>
         If you have any questions about these Terms and Conditions, You can
