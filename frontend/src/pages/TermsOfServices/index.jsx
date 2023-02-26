@@ -2,7 +2,7 @@ import React from "react";
 
 export default function TermsOfServices() {
   return (
-    <div className="px-20 py-10">
+    <div className="p-10">
       <h1 className="py-2 text-5xl font-semibold">Terms and Conditions</h1>
       <p>Last updated: February 25, 2023</p>
       <p>
