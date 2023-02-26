@@ -51,9 +51,8 @@ export default function MessageDetailSideBar({
       </h1>
 
       {chatRoomDetail.chatType !== "direct" ? (
-        <div className="flex text-xs">
-          <h1>GroupID:</h1>
-          <h3>{chatRoomDetail.conversationId}</h3>
+        <div className="flex py-2 text-center text-xs">
+          <p>ID: {chatRoomDetail.conversationId}</p>
         </div>
       ) : null}
 
