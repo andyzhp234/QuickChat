@@ -12,7 +12,9 @@ export default function Register() {
   const [email, setEmail] = React.useState("");
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [errorMessage, setErrorMessage] = React.useState("");
+  const [errorMessage, setErrorMessage] = React.useState(
+    "Please note that you may use a fake email address if you wish."
+  );
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -46,11 +48,7 @@ export default function Register() {
     <div className="flex h-screen w-screen items-center justify-center ">
       <AuthBox>
         <h1 className="text-center text-2xl font-medium">Create an account</h1>
-        {errorMessage != "" ? (
-          <h1 className="p-2 text-center text-sm text-red-700">
-            {errorMessage}
-          </h1>
-        ) : null}
+        <h1 className="p-3 text-center text-sm text-red-700">{errorMessage}</h1>
         <form onSubmit={handleSubmit}>
           <AuthInput
             label={"Username"}
