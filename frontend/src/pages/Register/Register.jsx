@@ -5,6 +5,7 @@ import AuthBox from "../../components/Auth/AuthBox";
 import AuthInput from "../../components/Auth/AuthInput";
 import AuthNavText from "../../components/Auth/AuthNavText";
 import { userRegisterAction } from "../../store/actions/apiUserActions";
+import PolicyNav from "../../components/PolicyNav";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function Register() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState(
-    "Please note that you may use a fake email address if you wish."
+    "This is a demo website. Feel free to use a fake email address."
   );
 
   async function handleSubmit(e) {
@@ -80,6 +81,7 @@ export default function Register() {
           navText="Already Have an Account?"
           nav={() => navigate("/login")}
         />
+        <PolicyNav />
       </AuthBox>
     </div>
   );
