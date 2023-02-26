@@ -36,22 +36,22 @@ Design Documentations can be found [here](./documentations).
 
 ## Features
 
-- Real-time messaging
-- Group chats
-- Direct messaging
-- Message history & fetch message
-- Emojis support
-- Audio and video calls
-- Multi-device compatibility
-- Responsive Layout
-- Online indicators
-- User authentication
 - Avatar
 - Rate Limiter
+- User authentication
+- Real-time messaging
+- Direct messaging
+- Group Chats
+- Audio and video calls
 - Screen sharing
+- View message history and retrieve messages using pagination
 - Friends list
-- Group Chat All Participants info
 - Friend Requests
+- Online indicators
+- Group Chat All Participants info
+- Emojis support
+- Multi-device compatibility
+- Responsive Layout
 
 ## Technologies
 
@@ -67,8 +67,8 @@ Design Documentations can be found [here](./documentations).
 | [Redux toolkit](https://redux-toolkit.js.org/)                                                                    | Redux official, opinionated, batteries-included toolset for efficient Redux development                                             |
 | [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en) | Chrome extensions that helps for debugging Redux state                                                                              |
 | [Emoji-mart](https://www.npmjs.com/package/emoji-mart/v/5.5.2)                                                    | Node.js packages that is a customizable emoji picker                                                                                |
-| [Vite](https://vitejs.dev/)                                                                                       | Modern dev & build tool for JavaScript projects                                                                                     |
 | [Socket.io-client](https://www.npmjs.com/package/socket.io-client)                                                | Node.js packages that enables real-time bidirectional communication between a web browser and a server using the WebSocket protocol |
+| [Vite](https://vitejs.dev/)                                                                                       | Modern dev & build tool for JavaScript projects                                                                                     |
 
 ### Backend
 
@@ -99,5 +99,5 @@ Design Documentations can be found [here](./documentations).
 - Support file sharing.
 - Allowing users to upload their avatar
 - Voice messages
+- Rich Text Sending
 - Chatbot intergrations
-- Add Accept Cookie Modal

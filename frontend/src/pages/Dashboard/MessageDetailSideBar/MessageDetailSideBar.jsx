@@ -49,6 +49,14 @@ export default function MessageDetailSideBar({
       <h1 className="mt-3 text-2xl font-semibold">
         {chatRoomDetail.chatRoomName}
       </h1>
+
+      {chatRoomDetail.chatType !== "direct" ? (
+        <div>
+          <h1>GroupID:</h1>
+          <h3 className="text-xs">{chatRoomDetail.conversationId}</h3>
+        </div>
+      ) : null}
+
       {chatRoomDetail.chatType === "direct" ? (
         <div
           className="mt-5 flex h-12 w-fit cursor-pointer items-center rounded bg-gray-200 px-4 hover:bg-gray-300"
