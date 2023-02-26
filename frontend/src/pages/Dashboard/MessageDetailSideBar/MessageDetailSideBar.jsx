@@ -52,7 +52,7 @@ export default function MessageDetailSideBar({
 
       {chatRoomDetail.chatType !== "direct" ? (
         <div className="flex text-xs">
-          <h1>GroupID:</h1>
+          <h1>Group ID: </h1>
           <h3>{chatRoomDetail.conversationId}</h3>
         </div>
       ) : null}
