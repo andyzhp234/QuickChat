@@ -6,6 +6,7 @@ import AuthInput from "../../components/Auth/AuthInput";
 import AuthNavText from "../../components/Auth/AuthNavText";
 import HorizontalDivider from "../../components/HorizontalDivider";
 import { userLoginAction } from "../../store/actions/apiUserActions";
+import PolicyNav from "../../components/PolicyNav";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -77,6 +78,7 @@ export default function Login() {
           navText="Register"
           nav={() => navigate("/register")}
         />
+        <PolicyNav isLogin={true} />
       </AuthBox>
     </div>
   );
