@@ -6,7 +6,7 @@ const AuthNavText = ({ description, navText, nav }) => {
       <h1 className="mt-2 text-slate-700">
         {description}{" "}
         <span
-          className="cursor-pointer text-cyan-500 hover:underline"
+          className="cursor-pointer text-blue-600 hover:underline"
           onClick={nav}
         >
           {navText}

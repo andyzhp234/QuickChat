@@ -52,20 +52,23 @@ export default function Register() {
         <h1 className="p-3 text-center text-sm text-red-700">{errorMessage}</h1>
         <form onSubmit={handleSubmit}>
           <AuthInput
-            label={"Username"}
-            type={"text"}
+            id="username"
+            label="Username"
+            type="text"
             value={username}
             change={(e) => setUsername(e.target.value)}
           />
           <AuthInput
-            label={"Email"}
-            type={"email"}
+            id="email"
+            label="Email"
+            type="email"
             value={email}
             change={(e) => setEmail(e.target.value)}
           />
           <AuthInput
-            label={"Password"}
-            type={"password"}
+            id="password"
+            label="Password"
+            type="password"
             value={password}
             change={(e) => setPassword(e.target.value)}
           />
