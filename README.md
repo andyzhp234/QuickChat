@@ -26,8 +26,11 @@ Design Documentations can be found [here](./documentations).
 
 <div align="center">
   <img src="./documentations/screenshots/screenshot-landing.png" alt="screenshot">
+  <br />
   <img src="./documentations/screenshots/screenshot-home.PNG" alt="screenshot">
+  <br />
   <img src="./documentations/screenshots/screenshot-video-calling.PNG" alt="screenshot">
+  <br />
 </div>
 
 ## Features
