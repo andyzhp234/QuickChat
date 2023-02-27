@@ -115,11 +115,52 @@ The following data flow diagrams show the flow of data within the chat app for d
 | username | STRING | Unique username used to identify a user |
 | password | STRING | hashed password for current user        |
 
-### Association
+### Database Model Association
+
+<img src="./screenshots/Database_Association.JPG" alt="Database Association"/>
+<br />
+<br />
+
+<ul>
+  <li>A User can have many Friend</li>
+  <li>A User can send many Friend Requests</li>
+  <li>A User can receive many Friend Requests</li>
+  <li>A User can have many Messages</li>
+  <li>A User can have many conversation</li>
+  <li>A conversation can have many user</li>
+  <li>A Message can only belongs to a Conversation</li>
+  <li>A Message can only belongs to a User</li>
+</ul>
 
 ## Frontend Routes
 
+### Public Routes
+
+| Routes    | Description            |
+| --------- | ---------------------- |
+|           | Landing Page           |
+| /login    | Login Page             |
+| /register | Register Page          |
+| /legal    | Terms Of Services Page |
+| /privacy  | Privacy Policy Page    |
+| /\*       | 404 Not Found Page     |
+
+### Private Routes
+
+| Routes     | Description    |
+| ---------- | -------------- |
+| /dashboard | Dashboard Page |
+
 ## Backend REST API Routes
+
+| Endpoint                                        | Request type | Description of the request/response                                                                                                          |
+| ----------------------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| /api/auth/checkAuth                             | GET          | Return HTTP 200 if current session is active, else return HTTP 401                                                                           |
+| /api/auth/register                              | POST         | Signup user account, return 201 with CSRF Token if success, else return 409 with error message                                               |
+| /api/auth/login                                 | POST         | Login user account, return 200 with CSRF Token if success, else return 400 with error message                                                |
+| /api/auth/logout                                | POST         | Perform action to delete current session and current cookie. Return 500 if unsucess                                                          |
+| /api/messages/chat-history/:conversationId      | GET          | Retrieve 10 old chat history. query: topMessageTime, which represents the lower bound to start with when finding 10 oldest message           |
+| /api/messages/chat-participants/:conversationId | GET          | Retrieve all participants that belongs to a conversation. No need of CSRF Token because CSRF is Blind attack and won't work for GET requests |
 
 ## Security
 

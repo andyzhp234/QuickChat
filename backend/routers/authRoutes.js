@@ -25,7 +25,7 @@ const loginSchema = Joi.object({
 router.get("/checkAuth", checkUserSession);
 router.post(
   "/register",
-  // rateLimiter,
+  rateLimiter(),
   schemaValidator(registerSchema),
   registerUser
 );
