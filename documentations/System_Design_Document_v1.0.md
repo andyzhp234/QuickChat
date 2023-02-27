@@ -162,6 +162,28 @@ The following data flow diagrams show the flow of data within the chat app for d
 | /api/messages/chat-history/:conversationId      | GET          | Retrieve 10 old chat history. query: topMessageTime, which represents the lower bound to start with when finding 10 oldest message           |
 | /api/messages/chat-participants/:conversationId | GET          | Retrieve all participants that belongs to a conversation. No need of CSRF Token because CSRF is Blind attack and won't work for GET requests |
 
+## Backend Websocket Routes
+
+| Endpoint              | Description of the request/response                                                |
+| --------------------- | ---------------------------------------------------------------------------------- |
+| disconnect            | Disconnect the current websocket connection                                        |
+| send-message          | Send direct message / broadcast message to group chat                              |
+| send-friend-request   | Send friend requests and notify receiver in real time                              |
+| accept-friend-request | Accept friend requests and save it to DB and send real time notification to sender |
+| reject-friend-request | Delete current friend request                                                      |
+| create-group-request  | Create an group chat and save it to DB                                             |
+| join-group-request    | Join a chat room and notify all chatroom user                                      |
+
+## Backend WebRTC signaling via WebSocket Routes
+
+| Endpoint           | Description of the request/response |
+| ------------------ | ----------------------------------- |
+| join-video-room    |                                     |
+| leave-video-room   |                                     |
+| send-rtc-offer     |                                     |
+| send-rtc-answer    |                                     |
+| send-ice-candidate |                                     |
+
 ## Security
 
 The chat app uses session authentication for user management, with session information stored in Redis for fast lookup. When a user logs in, the chat app backend server will generates a session ID along with other necessary informations that identifies a user, and this session ID will be send and stored in a httpOnly cookie to client's browser, and this session ID will be used to identify the current user for later operations. Since we are using session authentications, it is vulnerable to CSRF attack. Hence when the client made successful login, the backend will send an HTTPs response with CSRF Token along with the httpOnly Cookie that contains sessionID. The client will store the CSRF Token in its localstorage and will be included for future requests to help backend server identify a user and improve security. Some will worried about saving to localstorage will be vulnerable to XSS attack and should be saved instead to other places such as session storages or httpOnly Cookies. But if someone is able to hack your website using XSS, the places that you store is not important, as they just directly perform the action they want, without the need to know what's the csrf token & session ID. Once the user login to its account, he will be automatically redirected to the dashboard page. And when the dashboard page is render, it will try to connect to the websocket in a React useEffect hook. If we want to level up the securtiy and make the project more secure, I should pass in the CSRF token for each websocket communication. However, unlike cookie, websocket connection is far less vulnerable to XSS attack as cookie will be bring by broswer for all requests made within same domain (including subdomain).
