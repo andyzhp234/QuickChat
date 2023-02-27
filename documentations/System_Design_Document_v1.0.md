@@ -174,15 +174,17 @@ The following data flow diagrams show the flow of data within the chat app for d
 | create-group-request  | Create an group chat and save it to DB                                             |
 | join-group-request    | Join a chat room and notify all chatroom user                                      |
 
+## Frontend WebRTC Routes
+
 ## Backend WebRTC signaling via WebSocket Routes
 
-| Endpoint           | Description of the request/response |
-| ------------------ | ----------------------------------- |
-| join-video-room    |                                     |
-| leave-video-room   |                                     |
-| send-rtc-offer     |                                     |
-| send-rtc-answer    |                                     |
-| send-ice-candidate |                                     |
+| Websocket Server listening listening on | Description of the request/response |
+| --------------------------------------- | ----------------------------------- |
+| join-video-room                         |                                     |
+| leave-video-room                        |                                     |
+| send-rtc-offer                          |                                     |
+| send-rtc-answer                         |                                     |
+| send-ice-candidate                      |                                     |
 
 ## Security
 
