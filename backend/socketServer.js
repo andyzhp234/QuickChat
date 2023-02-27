@@ -23,7 +23,6 @@ const registerSocketServer = (server, sessionMiddleware) => {
     cors: {
       origin: [
         // "http://127.0.0.1:5173",
-        // "https://quickchat-app.netlify.app",
         "https://quick-chat.app",
       ],
       credentials: true,

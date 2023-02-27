@@ -1,159 +1,195 @@
-Auth
-
-I am using session authentication for this project. whenever a user is authenticated, a sessionID will be generated and save in my session storage (redis)
-
-Then this sessionID will be stored in client's frontend inside the http-only cookie. After that every requests the user make will needs includes this session id in the cookie.
-
-Session auth is vunlable to CSRF attack. IN this case, I will also generate an CSRF token after the user is being authenticated. Then this CSRF token will be saved in Localstorage
-
-because I want to have an long login features. The following requests a user make will also needs to send this CSRF token. I understand that saving CSRF token in localstorage will make
-
-it vunlable to XSS attack, but I believes that if XSS happens then no matter where I store (hidden form, http-only cookie, or session storage) it will not be safe.
-
-If a theif is already in your house, then no matter how much you renforce the door they will still steal everything from you.
-
-of course there exists much safer solutions, but I think for this project, the implementaiton above is enough as this chat app is not vunlable to any real money (like bank account or payment infos..) and the above implmentaions is good enought for 99% of the time.
-
-In this project, I want to pratice how to scale up, so I uses redis to store my sessionIDs (faster lookup and allows multiple server to access), and uses postgreSQL which is very
-
-good at handling many concurrent reads and writes. I also didn't set the cookie to sameSite : 'strict' because I to put my frontend code (static files) to be hosted on a platform that
-
-supports CDN services, which can significantly reduce the load time for my user around the world by caching in CDN Server. Therefore, that means the backend server and frontend will be
-
-running on different domain and meaning I needs to do something with CORS. The cookie will still have security set to true which means only https are allow to increase the security.
-
-The CSRF token will be stored in localstorage, and everytime a requests failed or user log out the CSRF will be deleted from the localstorage.
-
-This project, I am following ES Modules instead of CommonJS.
-
-Implemented Rate Limiting
-
-uses helmet on node.js express for more secure
-
-Friends functionalities and logic flow
-
-If an user wants to add another user, they will send out http request to the server containing receiver username or ID
-
-If such requests is valid, we will save this request.
-
-when user logs in, they will establish a socket connection with the server.
-
-The redis will uses and hastable to store all the socket ids..
-
-when a user log in, they will see all their friends.
-
-And they will use this friends lists to iterative finds out what are all the informations???
-
-if have time, look up how to set redis to socket storages for socket.io.
-
-The redis will store two entries for a user when a user logs in.
-
-1. A String data type with key of sessionID and value of session informations such as userID, username, etc...
-
-2. A hash data type with userID as key and property about websocket such as is Online or a list of all the socket ID that this user is currently log in to (in string representation hence parsing is needed when read / write is needed). For the list, I can actually use a redis set, but it will create 3 entries for the user (looks messy) and I think the size of the array won't be much so performance won't be a issue?? or should I??
-
-you may wonder, Why do we need this hash data type?? can't we just store user.isOnline in our session entry?? Well, the reason why I stored it in hash because we need to get information about
-
-whether a user is online or not or his friend is online or not. Therefore, we need a fast method to look up.
-
-If we don't use hash, we will need to iterate our entire redis session, and it will be extremely slow because we will need to do it for each user, and each user will use it multiple time. So, using a hash for redis with O(1) find time is more optimal and scalable.
-
-How about long login?? how is this implemented in my code?
-
-well, when a user login, a session will be created in redis
-
-the session will be set to expired after 25H, and the cookie is set to
-
-be exipred after 24H. If the user tried to login after his session is
-
-expired, he will be automatically logout and redirected to login page
-
-yes, the user will need to login every 25H, even he just opened this app at the 24.9H, he will be log out after 0.1H. I know we can optimize this user experiences by reseting session expirations time everytime uesr fetches a requests, but I am pretty happy with the current implementaions and will improve this in the future if available or by demand.
-
-Because Session authentication is vunlable to XSS attack, Once a user is authenticated, I need to bring the csrf token in each requests to furture help server validate a requests.
-
-Messages Deduplications:
-
-I believes that we need to handle messages deduplications, and it needs to be done on the
-
-client side.
-
-Reasons:
-
-I will fetch 10 old chat history when use first enter the chatroom using http protocol
-
-and i will use websocket to display any new messages the user receive after he entered the chat room
-
-let's consider the following scenerio
-
-User A entered a chatroom. he already have websocket connected to the app before he enter a chatroom. the moment he entered the chatroom, he sends out a http requests to get 10 oldest chat message. But, this http requests due to many many reasons, is very slow. And before this http requests even reach the server, someone in the chatroom has sent out 2 messages and those two messages are saved in the persistent database and is emited to UserA before that http requests for 10 old messages have even reach the server. In this scenario, User A will receive the 2 new messages first via websocket before the http request returns the 10 old messages.
-
-how to handle deduplications?
-
-other than a message array, I also have an messageIdSet, which stores only messageId.
-
-Since redux can't store sets, I use an Javascript Object (hashMap) instead of set, which also O(1) Get and set operations.
-
-For WebRTC, we need a signiling server (our server) and an stun server and an turn server.
-
-for most case a stun server is enough, but stun server is unreliable because most of our modern device sits behind a firewall and we can't get the nat infos from stun, hence we need a turn server to solve this problem.
-
-stun server I will use is the google stun server: stun:stun.l.google.com:19302
-
-Currently what i am thinking is that who ever join the chatroom is responsible for making the offer and who is already in the chatroom (video i mean) will make offer responding to that offer.
-
-We don't need to send CSRF token in GET request. CSRF Attack is a blind attack. It only sends requests to do something in the backend server.
-
-HTTP Requests now that needs CSRF Token:
-
-Backend Server Domain Name: https://quickchat-production.up.railway.app
-
-Frontend Server Domain Name: https://quickchat-app.netlify.app
-
-tricky bugs I encounter: Cookies are not being sent from server to client. Even when sameSite is set to none and secure set to true. The http response don't have set-cookie header.
-
-This event is happening even when both client and server have https. https://quickchat-production.up.railway.app && https://quickchat-app.netlify.app.
-
-solution: the requests is send using http, which I don't understand why. Changing http to https solves the problem.
-
-another difficulties that i encountered during this is that the https requests made from the client always translate to http.
-
-Which causes the cookies to not being forward and is unsafe to middle man attack. I needs to set "trust proxy" in order to solve the problem
-
-this is mainly because railway.app sets an proxy infront of my express server.
-
-spend some time finding http-only cookies, but realized that I can find them in client (broswer) as javascript can't find it.
-
-Difficulties: Websocket connection is fails on incognition mode. trying to find out why...
-
-Why should I deploy my website frontend to Netlify instead of having my main server serving the static file that is build from the frontend?
-
-Netlify offers: Easy site analytics, Globally distributed CDN,
-
-Why did I deploy my website to railways.app?
-
-Problem with approach above: If I deployed frontend to netlify and backend to railways.app. The frontend and backend will have different domain name.
-
-this will leads to issue such as CORS and cookies needs to be set secure: true and sameSite to none. Which is potentially more dangerous.
-
-Solutions:
-
-CSS questions that i learned from this project: 100vh don't work properly in mobile device. We need js to work around.
-
-Rate limiter is implement using Redis
-
-Backend message paginations is done.
-
-Features That I Want to add: File Sharing (the ability to send images) & Custom Icon (might need to set up AWS S3 bucket for this)
-
-On typing funcitonalties
-
-Solving bugs that 100vh doesn't work for mobile.
-
-Solutions: use javascript to calculate the window.innerHeight
-
-Attributions: Icon used from icon8.com
-
-Icon: Made using Canva
-
-WebRTC is not working in production: reason -> not mute at first.
+# System Design Document
+
+## Introduction
+
+The purpose of this project is to develop a chat application that supports real-time communication and 1v1 video calling using webRTC and webSockets. The chat app provides a convenient and quick way for people to communicate with their friends directly or involve in a group chatting. The goal of this project is to learn and develop an application that involves real-time communications, including websockets instead of the normal http.
+
+## Assumptions and Constraints
+
+The following assumptions and constraints apply to this system design:
+
+<ul>
+  <li>The chat app will be developed using webRTC and webSockets for real-time communication.</li>
+  <li>The chat app will use session authentication for user management.</li>
+  <li>The chat app will be developed using Node.js and React.js.</li>
+  <li>The chat app will use session authentication for user management, with session information stored in Redis for fast lookup.</li>
+  <li>The chat app will store necessary information about websockets in Redis for fast, performance lookup.</li>
+  <li>The chat app will use PostgreSQL for the database to store user information and chat messages.</li>
+  <li>The chat app will be hosted on Netlify for the frontend and Railways.app for the backend.
+</li>
+  <li>The chat app will be developed within a limited timeframe of 4-6 weeks.
+</li>
+</ul>
+
+## Architecture
+
+### High-Level Architecture
+
+The chat app is a web-based application that consists of two main components: the frontend component, which is built using React.js, and the backend component, which is built using Node.js and uses Express.js as the web framework. The frontend and backend components communicate with each other using websockets and APIs. The chat app also includes Redis for session management, PostgreSQL for the database, and webRTC for real-time communication and 1v1 video calling.
+
+## System Components
+
+The chat app consists of the following components:
+
+<ul>
+  <li>
+    Frontend Component: The frontend component is responsible for rendering the user interface for the chat app, including the login and registration pages, the chat room and direct message interfaces, and the video call and screen sharing interfaces.
+  </li>
+  <li>
+    Backend Component: The backend component is responsible for handling the business logic of the chat app, including user management, chat management, and authentication management.
+  </li>
+  <li>
+    Redis: Redis is used to store session information for user management and to store necessary information about websockets for fast, performance lookup.
+  </li>
+  <li>
+    PostgreSQL: PostgreSQL is used to store user information and chat messages.
+  </li>
+  <li>
+    webRTC: webRTC is used for real-time communication and 1v1 video calling between users.
+  </li>
+</ul>
+
+## Data Management
+
+The following data flow diagrams show the flow of data within the chat app for different use cases:
+
+<ul>
+  <li>
+    Sending a message: When a user sends a message, the message is sent over websockets to the backend component, which stores the message in the database and sends the message to the appropriate chat room or direct message via websocket.
+  </li>
+  <li>
+    Making a video call: When a user initiates a video call, the call request is sent over websockets to the backend component (signaling and delivering necessary informations such as ICE candidates), which establishes a webRTC connection between the users and enables video and audio transmission.
+  </li>
+</ul>
+
+## Data Models
+
+### Conversation
+
+| Column | Type   | Description                                          |
+| ------ | ------ | ---------------------------------------------------- |
+| id     | UUID   | Unique Id for Current Conversation and is used as PK |
+| type   | STRING | either "direct" or "group"                           |
+| name   | STRING | Name for Current Conversation                        |
+
+### ConversationParticipant
+
+| Column         | Type | Description                                   |
+| -------------- | ---- | --------------------------------------------- |
+| id             | UUID | Unique Id used as PK                          |
+| conversationId | UUID | Foreign Key referencing to Conversation Model |
+| participantId  | UUID | Foreign Key referencing to User Model         |
+
+### Friend
+
+| Column   | Type | Description                           |
+| -------- | ---- | ------------------------------------- |
+| id       | UUID | Unique Id used as PK                  |
+| user1_id | UUID | Foreign Key referencing to User Model |
+| user2_id | UUID | Foreign Key referencing to User Model |
+
+### FriendRequest
+
+| Column     | Type | Description                           |
+| ---------- | ---- | ------------------------------------- |
+| id         | UUID | Unique Id used as PK                  |
+| receiverId | UUID | Foreign Key referencing to User Model |
+| senderId   | UUID | Foreign Key referencing to User Model |
+
+### Message
+
+| Column         | Type   | Description                                    |
+| -------------- | ------ | ---------------------------------------------- |
+| id             | UUID   | Unique Id used as PK                           |
+| conversationId | UUID   | Foreign Key referencing to Conversation Model  |
+| authorId       | UUID   | Foreign Key referencing to User Model          |
+| content        | STRING | Message content                                |
+| date           | DATE   | Exact time (date) when this message is created |
+
+### User
+
+| Column   | Type   | Description                             |
+| -------- | ------ | --------------------------------------- |
+| id       | UUID   | Unique Id used as PK                    |
+| email    | STRING | Unique email used to identify a user    |
+| username | STRING | Unique username used to identify a user |
+| password | STRING | hashed password for current user        |
+
+### Database Model Association
+
+<img src="./screenshots/Database_Association.JPG" alt="Database Association"/>
+<br />
+<br />
+
+<ul>
+  <li>A User can have many Friend</li>
+  <li>A User can send many Friend Requests</li>
+  <li>A User can receive many Friend Requests</li>
+  <li>A User can have many Messages</li>
+  <li>A User can have many conversation</li>
+  <li>A conversation can have many user</li>
+  <li>A Message can only belongs to a Conversation</li>
+  <li>A Message can only belongs to a User</li>
+</ul>
+
+## Frontend Routes
+
+### Public Routes
+
+| Routes    | Description            |
+| --------- | ---------------------- |
+|           | Landing Page           |
+| /login    | Login Page             |
+| /register | Register Page          |
+| /legal    | Terms Of Services Page |
+| /privacy  | Privacy Policy Page    |
+| /\*       | 404 Not Found Page     |
+
+### Private Routes
+
+| Routes     | Description    |
+| ---------- | -------------- |
+| /dashboard | Dashboard Page |
+
+## Backend REST API Routes
+
+| Endpoint                                        | Request type | Description of the request/response                                                                                                          |
+| ----------------------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| /api/auth/checkAuth                             | GET          | Return HTTP 200 if current session is active, else return HTTP 401                                                                           |
+| /api/auth/register                              | POST         | Signup user account, return 201 with CSRF Token if success, else return 409 with error message                                               |
+| /api/auth/login                                 | POST         | Login user account, return 200 with CSRF Token if success, else return 400 with error message                                                |
+| /api/auth/logout                                | POST         | Perform action to delete current session and current cookie. Return 500 if unsucess                                                          |
+| /api/messages/chat-history/:conversationId      | GET          | Retrieve 10 old chat history. query: topMessageTime, which represents the lower bound to start with when finding 10 oldest message           |
+| /api/messages/chat-participants/:conversationId | GET          | Retrieve all participants that belongs to a conversation. No need of CSRF Token because CSRF is Blind attack and won't work for GET requests |
+
+## Backend Websocket Routes
+
+| Endpoint              | Description of the request/response                                                |
+| --------------------- | ---------------------------------------------------------------------------------- |
+| disconnect            | Disconnect the current websocket connection                                        |
+| send-message          | Send direct message / broadcast message to group chat                              |
+| send-friend-request   | Send friend requests and notify receiver in real time                              |
+| accept-friend-request | Accept friend requests and save it to DB and send real time notification to sender |
+| reject-friend-request | Delete current friend request                                                      |
+| create-group-request  | Create an group chat and save it to DB                                             |
+| join-group-request    | Join a chat room and notify all chatroom user                                      |
+
+## Frontend WebRTC Routes
+
+## Backend WebRTC signaling via WebSocket Routes
+
+| Websocket Server listening listening on | Description of the request/response |
+| --------------------------------------- | ----------------------------------- |
+| join-video-room                         |                                     |
+| leave-video-room                        |                                     |
+| send-rtc-offer                          |                                     |
+| send-rtc-answer                         |                                     |
+| send-ice-candidate                      |                                     |
+
+## Security
+
+The chat app uses session authentication for user management, with session information stored in Redis for fast lookup. When a user logs in, the chat app backend server will generates a session ID along with other necessary informations that identifies a user, and this session ID will be send and stored in a httpOnly cookie to client's browser, and this session ID will be used to identify the current user for later operations. Since we are using session authentications, it is vulnerable to CSRF attack. Hence when the client made successful login, the backend will send an HTTPs response with CSRF Token along with the httpOnly Cookie that contains sessionID. The client will store the CSRF Token in its localstorage and will be included for future requests to help backend server identify a user and improve security. Some will worried about saving to localstorage will be vulnerable to XSS attack and should be saved instead to other places such as session storages or httpOnly Cookies. But if someone is able to hack your website using XSS, the places that you store is not important, as they just directly perform the action they want, without the need to know what's the csrf token & session ID. Once the user login to its account, he will be automatically redirected to the dashboard page. And when the dashboard page is render, it will try to connect to the websocket in a React useEffect hook. If we want to level up the securtiy and make the project more secure, I should pass in the CSRF token for each websocket communication. However, unlike cookie, websocket connection is far less vulnerable to XSS attack as cookie will be bring by broswer for all requests made within same domain (including subdomain).
+
+## Conclusion
+
+In conclusion, the chat app is a web-based application that supports real-time communication and 1v1 video calling using webRTC and webSockets. The chat app is designed to be simple and intuitive, with a responsive layout that adapts to different screen sizes. The chat app uses a STUN server for NAT traversal and to enable communication between users behind firewalls. The chat app uses websockets for real-time messaging and session authentication for user management, with session information stored in Redis for fast lookup.
