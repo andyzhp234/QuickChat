@@ -22,6 +22,7 @@ export default function UserStatus() {
         className="ml-auto h-7 w-7 cursor-pointer duration-100"
         src={DropdownIcon}
         onClick={() => setOpenDropDown((prev) => !prev)}
+        alt="dropdown"
       />
       {openDropdown ? <UserDropdownMenu /> : null}
     </div>
