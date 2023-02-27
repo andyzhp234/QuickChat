@@ -25,7 +25,7 @@ The following assumptions and constraints apply to this system design:
 
 ### High-Level Architecture
 
-The chat app is a web-based application that consists of two main components: the frontend component, which is built using React.js, and the backend component, which is built using Node.js and uses Express.js as the web framework. The frontend and backend components communicate with each other using websockets and APIs. The chat app also uses third-party services, including Redis for session management, PostgreSQL for the database, and webRTC for real-time communication and 1v1 video calling.
+The chat app is a web-based application that consists of two main components: the frontend component, which is built using React.js, and the backend component, which is built using Node.js and uses Express.js as the web framework. The frontend and backend components communicate with each other using websockets and APIs. The chat app also includes Redis for session management, PostgreSQL for the database, and webRTC for real-time communication and 1v1 video calling.
 
 ## System Components
 
@@ -64,15 +64,62 @@ The following data flow diagrams show the flow of data within the chat app for d
 
 ## Data Models
 
-### 
+### Conversation
 
-| Column | Type | Description |
-| ------ | ---- | ----------- |
-|        |      |             |
-|        |      |             |
-|        |      |             |
-|        |      |             |
-|        |      |             |
+| Column | Type   | Description                                          |
+| ------ | ------ | ---------------------------------------------------- |
+| id     | UUID   | Unique Id for Current Conversation and is used as PK |
+| type   | STRING | either "direct" or "group"                           |
+| name   | STRING | Name for Current Conversation                        |
+
+### ConversationParticipant
+
+| Column         | Type | Description                                   |
+| -------------- | ---- | --------------------------------------------- |
+| id             | UUID | Unique Id used as PK                          |
+| conversationId | UUID | Foreign Key referencing to Conversation Model |
+| participantId  | UUID | Foreign Key referencing to User Model         |
+
+### Friend
+
+| Column   | Type | Description                           |
+| -------- | ---- | ------------------------------------- |
+| id       | UUID | Unique Id used as PK                  |
+| user1_id | UUID | Foreign Key referencing to User Model |
+| user2_id | UUID | Foreign Key referencing to User Model |
+
+### FriendRequest
+
+| Column     | Type | Description                           |
+| ---------- | ---- | ------------------------------------- |
+| id         | UUID | Unique Id used as PK                  |
+| receiverId | UUID | Foreign Key referencing to User Model |
+| senderId   | UUID | Foreign Key referencing to User Model |
+
+### Message
+
+| Column         | Type   | Description                                    |
+| -------------- | ------ | ---------------------------------------------- |
+| id             | UUID   | Unique Id used as PK                           |
+| conversationId | UUID   | Foreign Key referencing to Conversation Model  |
+| authorId       | UUID   | Foreign Key referencing to User Model          |
+| content        | STRING | Message content                                |
+| date           | DATE   | Exact time (date) when this message is created |
+
+### User
+
+| Column   | Type   | Description                             |
+| -------- | ------ | --------------------------------------- |
+| id       | UUID   | Unique Id used as PK                    |
+| email    | STRING | Unique email used to identify a user    |
+| username | STRING | Unique username used to identify a user |
+| password | STRING | hashed password for current user        |
+
+### Association
+
+## Frontend Routes
+
+## Backend REST API Routes
 
 ## Security
 
