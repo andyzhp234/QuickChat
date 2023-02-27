@@ -15,7 +15,8 @@ export default function LandingPage() {
           struggling with unreliable messaging apps.
         </h2>
         <div
-          className="mt-8 cursor-pointer rounded-xl bg-emerald-400 px-5 py-3 font-semibold text-white hover:bg-emerald-500"
+          className="mt-8 cursor-pointer rounded-xl bg-gradient-to-t from-sky-500 to-sky-400 px-6 py-3 font-semibold text-white
+            hover:bg-gradient-to-t hover:from-sky-600 hover:to-sky-500"
           onClick={() => navigate("/login")}
         >
           Get Started

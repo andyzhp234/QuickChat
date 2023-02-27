@@ -11,7 +11,7 @@ export default function PolicyNav({ isLogin = false }) {
   }
 
   return (
-    <div className="mt-7 text-sm">
+    <div className="mt-7 text-xs">
       By {isLogin ? "Logging into QuickChat" : "Signing up for QuickChat"} you
       agree to our{" "}
       <span className="cursor-pointer text-blue-600" onClick={navTOS}>

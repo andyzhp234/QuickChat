@@ -47,14 +47,16 @@ export default function Login() {
         ) : null}
         <form onSubmit={(e) => handleSubmit(e)}>
           <AuthInput
-            label={"Email"}
-            type={"email"}
+            id="email"
+            label="Email"
+            type="email"
             value={email}
             change={(e) => setEmail(e.target.value)}
           />
           <AuthInput
-            label={"Password"}
-            type={"password"}
+            id="password"
+            label="Password"
+            type="password"
             value={password}
             change={(e) => setPassword(e.target.value)}
           />
