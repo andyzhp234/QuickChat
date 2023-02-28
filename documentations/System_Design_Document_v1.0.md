@@ -27,6 +27,46 @@ The following assumptions and constraints apply to this system design:
 
 The chat app is a web-based application that consists of two main components: the frontend component, which is built using React.js, and the backend component, which is built using Node.js and uses Express.js as the web framework. The frontend and backend components communicate with each other using websockets and APIs. The chat app also includes Redis for session management, PostgreSQL for the database, and webRTC for real-time communication and 1v1 video calling.
 
+## Functional Requirement
+
+<ul>
+  <li>User Authentication: Users must be able to register, login, and create and manage their profile.</li>
+  <li>Sending and receiving messages: Users must be able to send messages to other users and receive messages from them in real-time.</li>
+  <li>Group chat functionality: Users must be able to create and join chat groups, and send messages to all members of the group.</li>
+  <li>Online indicator: The app must display an online indicator to show whether a user is currently online and available to receive messages.</li>
+  <li>Friend request and adding functionality: Users must be able to add other users as friends, and accept or decline friend requests from other users.</li>
+  <li>Emoji support: The app must support emojis for users to use in their chat messages.</li>
+  <li>Voice and video calling: The app must support voice and video calling functionality to allow users to communicate using voice or video.</li>
+  <li>Multi-device support: The app must support users logging in and accessing their chats from multiple devices, such as a phone and a computer.</li>
+  <li>Accessibility features: The app must be designed with accessibility in mind, including features such as high-contrast mode, screen reader compatibility, and adjustable font sizes.</li>
+  <li>Persistent storage of chat history: The app must store chat history in a persistent manner so that users can view their past conversations at a later time. The chat history must be searchable and organized by date, time, and user.</li>
+</ul>
+
+## Non-functional Requirement
+
+<ul>
+  <li>Low Latency: We want users to be able to chat in real time, so low latency is pretty important</li>
+  <li>Performance: The app must load within 3 seconds on average, and must be able to handle 1,000 simultaneous users.</li>
+  <li>Security: The app must use encryption to protect user account, and must comply with relevant data privacy regulations.</li>
+  <li>Usability: The app must be user-friendly and easy to navigate, with a clean and intuitive user interface.</li>
+  <li>Compatibility: The app must be both mobile and desktop responsive</li>
+  <li>Reliability: The app must be stable and reliable, with minimal downtime and error rates.</li>
+  <li>Scalability: The app must be able to handle increasing numbers of users and data without compromising performance or functionality.</li>
+  <li>Accessibility: The app must be designed to be accessible to users with disabilities, such as those who are blind or visually impaired.</li>
+</ul>
+
+## Architecture Diagram
+
+<img src="./screenshots/architecture.jpeg" alt=""/>
+
+## Sending Messages Diagram
+
+<img src="./screenshots/ws_send_messages.jpeg" alt=""/>
+
+## WebRTC work flow Diagram
+
+<img src="./screenshots/webRTC_flow.jpeg" alt=""/>
+
 ## System Components
 
 The chat app consists of the following components:
@@ -162,29 +202,53 @@ The following data flow diagrams show the flow of data within the chat app for d
 | /api/messages/chat-history/:conversationId      | GET          | Retrieve 10 old chat history. query: topMessageTime, which represents the lower bound to start with when finding 10 oldest message           |
 | /api/messages/chat-participants/:conversationId | GET          | Retrieve all participants that belongs to a conversation. No need of CSRF Token because CSRF is Blind attack and won't work for GET requests |
 
+## Frontend Websocket Routes
+
+| Frontend Websocket listening on | Description of the request/response                                               |
+| ------------------------------- | --------------------------------------------------------------------------------- |
+| get-username                    | if received username, save it to redux store                                      |
+| friend-online                   | if a friend is online, update redux state                                         |
+| friend-offline                  | if a friend is offline, update redux state                                        |
+| friend-list-online              | if received a list of friend who are online, save it to redux store               |
+| friend-list-offline             | if received a list of friend who are offline, save it to redux store              |
+| new-friend-online               | if accept a new friend, update to online friend lists in redux store              |
+| new-friend-offline              | if accept a new friend, update to offline friend lists in redux store             |
+| friend-requests-list            | if received a list of friend requests, save it to redux store                     |
+| friend-request                  | if received a friend request, update it to redux store                            |
+| new-chat-message                | if received a new chat message, update the redux messages state                   |
+| groups-chatroom-list            | if received a list of chatroom the user is participant to, save it to redux store |
+| new-groups-chatroom             | if join a new group chat room, update it to redux state                           |
+
 ## Backend Websocket Routes
 
-| Endpoint              | Description of the request/response                                                |
-| --------------------- | ---------------------------------------------------------------------------------- |
-| disconnect            | Disconnect the current websocket connection                                        |
-| send-message          | Send direct message / broadcast message to group chat                              |
-| send-friend-request   | Send friend requests and notify receiver in real time                              |
-| accept-friend-request | Accept friend requests and save it to DB and send real time notification to sender |
-| reject-friend-request | Delete current friend request                                                      |
-| create-group-request  | Create an group chat and save it to DB                                             |
-| join-group-request    | Join a chat room and notify all chatroom user                                      |
+| Backend Websocket listening on | Description of the request/response                                                |
+| ------------------------------ | ---------------------------------------------------------------------------------- |
+| disconnect                     | Disconnect the current websocket connection                                        |
+| send-message                   | Send direct message / broadcast message to group chat                              |
+| send-friend-request            | Send friend requests and notify receiver in real time                              |
+| accept-friend-request          | Accept friend requests and save it to DB and send real time notification to sender |
+| reject-friend-request          | Delete current friend request                                                      |
+| create-group-request           | Create an group chat and save it to DB                                             |
+| join-group-request             | Join a chat room and notify all chatroom user                                      |
 
-## Frontend WebRTC Routes
+## Frontend WebRTC signaling via WebSocket Routes
+
+| Frontend Websocket listening on | Description of the request/response                                                      |
+| ------------------------------- | ---------------------------------------------------------------------------------------- |
+| send-rtc-offer                  | if recieved an offer, call the function createAnswer                                     |
+| send-rtc-answer                 | if received an answer, call the add answer function                                      |
+| send-ice-candidate              | if received Ice candidates, add it to current peerConnection Object                      |
+| user-leave                      | if the remote user leaved the chatroom, close the peerConnection and reset remote stream |
 
 ## Backend WebRTC signaling via WebSocket Routes
 
-| Websocket Server listening listening on | Description of the request/response |
-| --------------------------------------- | ----------------------------------- |
-| join-video-room                         |                                     |
-| leave-video-room                        |                                     |
-| send-rtc-offer                          |                                     |
-| send-rtc-answer                         |                                     |
-| send-ice-candidate                      |                                     |
+| Backend Websocket listening on | Description of the request/response                                                                                         |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| join-video-room                | if received join video room request, add the current sessionId to Redis set starting with videoConversationId               |
+| leave-video-room               | if received leave video room request, remote the current sessionId from Redis set starting with videoConversationId         |
+| send-rtc-offer                 | if received an request to broadcast RTC offer, it will broadcast all sessionId that is currently in the videoConversationId |
+| send-rtc-answer                | If received an requests to send answer, it will send the rtc answer to speicify socketId                                    |
+| send-ice-candidate             | If received an requests to send Ice-candidate, it will broadcast the ice-candidates                                         |
 
 ## Security
 
