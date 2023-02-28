@@ -1,78 +1,50 @@
-Auth
+# Technical Specification Document
 
-I am using session authentication for this project. whenever a user is authenticated, a sessionID will be generated and save in my session storage (redis)
+## Introduction
+
+This technical specification document provides a detailed description about the implementations of the functional requirements of the system.
+
+## Auth
+
+I am using session authentication for this project. whenever a user successfully login / register / authenticated, a sessionID will be generated and save in my session storage (redis).
 
 Then this sessionID will be stored in client's frontend inside the http-only cookie. After that every requests the user make will needs includes this session id in the cookie.
 
-Session auth is vunlable to CSRF attack. IN this case, I will also generate an CSRF token after the user is being authenticated. Then this CSRF token will be saved in Localstorage
+Session auth is vunlable to CSRF attack. In this case, I will also generate an CSRF token after the user is being authenticated. Then this CSRF token will be saved in Localstorage and will be included in future post / delete / put requests. We don't need CSRF Token for GET requests because CSRF attack is a blind attack. I understand that saving CSRF token in localstorage will make it vunlable to XSS attack, but I believes that if XSS happens then no matter where I store (hidden form, http-only cookie, or session storage) it will not be safe, and I should do other implementations such as adding Content Security Policy (CSP) to help protecting from XSS attack. If a theif is already in your house, then no matter how much you renforce the door they will still steal everything from you.
 
-because I want to have an long login features. The following requests a user make will also needs to send this CSRF token. I understand that saving CSRF token in localstorage will make
+Of course there exists much safer solutions, but the implementaiton above is enough as this chat app is not vunlable to any real money (like bank account or payment infos..) and the above implmentaions is good enought for 99% of the time.
 
-it vunlable to XSS attack, but I believes that if XSS happens then no matter where I store (hidden form, http-only cookie, or session storage) it will not be safe.
+Whenever a user logout, they will send a http requests to the backend, which will make sure it deletes the current session from redis and destroy the cookie containing the sessionID.
 
-If a theif is already in your house, then no matter how much you renforce the door they will still steal everything from you.
+Moreover, this project supports long login features, which allows user to login directly without the need to login again if they didn't manually signout within 24 Hours. Session is set to expired after 25H, and the cookie is set to be exipred after 24H. If the user tried to login after his session is expired, he will be automatically logout and redirected to login page. The user will need to login every 25H, even he just opened this app at the 24.9H, he will be log out after 0.1H. I know we can optimize this user experiences by reseting session expirations time everytime user fetches a requests, but currently I am pretty happy with the current implementaions.
 
-of course there exists much safer solutions, but I think for this project, the implementaiton above is enough as this chat app is not vunlable to any real money (like bank account or payment infos..) and the above implmentaions is good enought for 99% of the time.
+Moreover, to make my website more secure, I used npm pacakges Helmet for node.js express server, as Helmet provides various middleware functions that can help secure your application against common web vulnerabilities such as cross-site scripting (XSS), cross-site request forgery (CSRF), and clickjacking.
 
-In this project, I want to pratice how to scale up, so I uses redis to store my sessionIDs (faster lookup and allows multiple server to access), and uses postgreSQL which is very
+## Sending and receiving messages
 
-good at handling many concurrent reads and writes. I also didn't set the cookie to sameSite : 'strict' because I to put my frontend code (static files) to be hosted on a platform that
+## Group chat functionality
 
-supports CDN services, which can significantly reduce the load time for my user around the world by caching in CDN Server. Therefore, that means the backend server and frontend will be
+## Online indicator
 
-running on different domain and meaning I needs to do something with CORS. The cookie will still have security set to true which means only https are allow to increase the security.
+## Friend request
 
-The CSRF token will be stored in localstorage, and everytime a requests failed or user log out the CSRF will be deleted from the localstorage.
+## Emoji support
 
-This project, I am following ES Modules instead of CommonJS.
+## Voice and video calling
 
-Implemented Rate Limiting
+## Chat history
 
-uses helmet on node.js express for more secure
+## Rate Limiter
 
-Friends functionalities and logic flow
+## WebRTC
 
-If an user wants to add another user, they will send out http request to the server containing receiver username or ID
+For WebRTC, we need a signiling server (our server) and an stun server and an turn server.
 
-If such requests is valid, we will save this request.
+for most case a stun server is enough, but stun server is unreliable because most of our modern device sits behind a firewall and we can't get the nat infos from stun, hence we need a turn server to solve this problem.
 
-when user logs in, they will establish a socket connection with the server.
+stun server I will use is the google stun server: stun:stun.l.google.com:19302
 
-The redis will uses and hastable to store all the socket ids..
-
-when a user log in, they will see all their friends.
-
-And they will use this friends lists to iterative finds out what are all the informations???
-
-if have time, look up how to set redis to socket storages for socket.io.
-
-The redis will store two entries for a user when a user logs in.
-
-1. A String data type with key of sessionID and value of session informations such as userID, username, etc...
-
-2. A hash data type with userID as key and property about websocket such as is Online or a list of all the socket ID that this user is currently log in to (in string representation hence parsing is needed when read / write is needed). For the list, I can actually use a redis set, but it will create 3 entries for the user (looks messy) and I think the size of the array won't be much so performance won't be a issue?? or should I??
-
-you may wonder, Why do we need this hash data type?? can't we just store user.isOnline in our session entry?? Well, the reason why I stored it in hash because we need to get information about
-
-whether a user is online or not or his friend is online or not. Therefore, we need a fast method to look up.
-
-If we don't use hash, we will need to iterate our entire redis session, and it will be extremely slow because we will need to do it for each user, and each user will use it multiple time. So, using a hash for redis with O(1) find time is more optimal and scalable.
-
-How about long login?? how is this implemented in my code?
-
-well, when a user login, a session will be created in redis
-
-the session will be set to expired after 25H, and the cookie is set to
-
-be exipred after 24H. If the user tried to login after his session is
-
-expired, he will be automatically logout and redirected to login page
-
-yes, the user will need to login every 25H, even he just opened this app at the 24.9H, he will be log out after 0.1H. I know we can optimize this user experiences by reseting session expirations time everytime uesr fetches a requests, but I am pretty happy with the current implementaions and will improve this in the future if available or by demand.
-
-Because Session authentication is vunlable to XSS attack, Once a user is authenticated, I need to bring the csrf token in each requests to furture help server validate a requests.
-
-Messages Deduplications:
+## Messages Deduplications
 
 I believes that we need to handle messages deduplications, and it needs to be done on the
 
@@ -94,21 +66,38 @@ other than a message array, I also have an messageIdSet, which stores only messa
 
 Since redux can't store sets, I use an Javascript Object (hashMap) instead of set, which also O(1) Get and set operations.
 
-For WebRTC, we need a signiling server (our server) and an stun server and an turn server.
+## Redis
 
-for most case a stun server is enough, but stun server is unreliable because most of our modern device sits behind a firewall and we can't get the nat infos from stun, hence we need a turn server to solve this problem.
+The redis will store two entries for a user when a user logs in.
 
-stun server I will use is the google stun server: stun:stun.l.google.com:19302
+1. A String data type with key of sessionID and value of session informations such as userID, username, etc...
 
-Currently what i am thinking is that who ever join the chatroom is responsible for making the offer and who is already in the chatroom (video i mean) will make offer responding to that offer.
+2. A hash data type with userID as key and property about websocket such as is Online or a list of all the socket ID that this user is currently log in to (in string representation hence parsing is needed when read / write is needed). For the list, I can actually use a redis set, but it will create 3 entries for the user (looks messy) and I think the size of the array won't be much so performance won't be a issue?? or should I??
 
-We don't need to send CSRF token in GET request. CSRF Attack is a blind attack. It only sends requests to do something in the backend server.
+you may wonder, Why do we need this hash data type?? can't we just store user.isOnline in our session entry?? Well, the reason why I stored it in hash because we need to get information about
 
-HTTP Requests now that needs CSRF Token:
+whether a user is online or not or his friend is online or not. Therefore, we need a fast method to look up.
 
-Backend Server Domain Name: https://quickchat-production.up.railway.app
+If we don't use hash, we will need to iterate our entire redis session, and it will be extremely slow because we will need to do it for each user, and each user will use it multiple time. So, using a hash for redis with O(1) find time is more optimal and scalable.
 
-Frontend Server Domain Name: https://quickchat-app.netlify.app
+## Scaling
+
+In this project, I am using redis as session storage as it allows for fast and efficient access to session information. Redis is also designed to be highly scalable, meaning that it can handle large amounts of data and traffic.
+
+I am also using PostgreSQL for my persistent Database even I know other popular chat app such as Discord uses NoSQL Database such as MongoDB or Cassandra. Here's my reasons:
+
+<ol>
+  <li>Data for my chat apps are mostly relational</li>
+  <li>Support ACID transactions</li>
+  <li>I personally prefer SQL database unless I have a very good reason to use NoSQL database such as: High scalability & very low latency</li>
+  <li>PostgreSQL is very good at handling many concurrent reads and writes. Also PostgreSQL is highly scalable and can handle large volumes of data and high traffic. This makes it an excellent choice for chat apps that require a large number of users and real-time messaging.</li>
+</ol>
+
+Currently the backend have only one server as there aren't much active user. If the number of active user increases, I am thinking of horizontally scaling the backend by adding more server to my backend, and change the hosting platform from railways.app to AWS / Azure with a load balancer palaced in front of the backend servers. I might also have an individual server for websocket to improve the performances.
+
+Currently I am deploying my frontend code to netlify instead of having my backend server to serve the static frontend file. This is because I want to benefit from the global CDN that netlify offers when deploying frontend static pages, and this can greatly improve the initial page loading time for users around the country / world.
+
+## Difficulties that I encountered
 
 tricky bugs I encounter: Cookies are not being sent from server to client. Even when sameSite is set to none and secure set to true. The http response don't have set-cookie header.
 
@@ -140,20 +129,21 @@ Solutions:
 
 CSS questions that i learned from this project: 100vh don't work properly in mobile device. We need js to work around.
 
-Rate limiter is implement using Redis
-
-Backend message paginations is done.
-
-Features That I Want to add: File Sharing (the ability to send images) & Custom Icon (might need to set up AWS S3 bucket for this)
-
-On typing funcitonalties
-
 Solving bugs that 100vh doesn't work for mobile.
 
 Solutions: use javascript to calculate the window.innerHeight
 
-Attributions: Icon used from icon8.com
-
-Icon: Made using Canva
-
 WebRTC is not working in production: reason -> not mute at first.
+
+## Miscellaneous
+
+I am following ES Modules instead of CommonJS.
+
+Backend Server Domain Name: https://quickchat-production.up.railway.app
+
+Frontend Server Domain Name: https://quickchat-app.netlify.app
+
+## Attributions
+
+Icons: Google Material Symbols and Icons
+Logos: Canva
