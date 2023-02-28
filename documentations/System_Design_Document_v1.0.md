@@ -55,6 +55,18 @@ The chat app is a web-based application that consists of two main components: th
   <li>Accessibility: The app must be designed to be accessible to users with disabilities, such as those who are blind or visually impaired.</li>
 </ul>
 
+## Architecture Diagram
+
+<img src="./screenshots/architecture.jpeg" alt=""/>
+
+## Sending Messages Diagram
+
+<img src="./screenshots/ws_send_messages.jpeg" alt=""/>
+
+## WebRTC work flow Diagram
+
+<img src="./screenshots/webRTC_flow.jpeg" alt=""/>
+
 ## System Components
 
 The chat app consists of the following components:

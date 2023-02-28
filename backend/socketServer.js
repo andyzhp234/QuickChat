@@ -17,7 +17,7 @@ import socketSendCandidates from "./socketHandler/videoCalling/socketSendCandida
 let io;
 
 // @params http Server
-// @params reddis sessionMiddleware
+// @params redis sessionMiddleware
 const registerSocketServer = (server, sessionMiddleware) => {
   io = new Server(server, {
     cors: {
