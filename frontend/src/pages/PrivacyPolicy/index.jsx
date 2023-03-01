@@ -4,7 +4,7 @@ export default function PrivacyPolicy() {
   return (
     <div className="p-10">
       <h1 className="py-5 text-6xl">Privacy Policy</h1>
-      <h2 className="py-1">Last updated: February 25, 2023</h2>
+      <h2 className="py-1">Last updated: February 28, 2023</h2>
       <h2 className="py-1">
         At Quick Chat, accessible at quick-chat.app, one of our main priorities
         is the privacy of our visitors. This Privacy Policy document contains
@@ -20,7 +20,7 @@ export default function PrivacyPolicy() {
         of your personal information in accordance with this Privacy Policy.
         This Privacy Policy is incorporated into and subject to the guidelines
         of our Terms of Use. This Privacy Policy is effective upon registration
-        for new users, and is otherwise effective on February 25, 2023 for all
+        for new users, and is otherwise effective on February 28, 2023 for all
         users.
       </h2>
       <h1 className="py-2 text-4xl font-semibold">
@@ -46,6 +46,15 @@ export default function PrivacyPolicy() {
         manner, the exact timing of these deletions may vary and is not
         guaranteed. By creating an account on our website, you acknowledge and
         agree that your account may be deleted at any time without prior notice.
+        We collect certain information about users of our chat app, including
+        their IP addresses, to implement rate limiting and prevent spamming.
+        Specifically, we save the IP address of the sender and the number of
+        requests being sent within the last 60 seconds in Redis for the purpose
+        of rate limiting. This information is only used for the purpose of rate
+        limiting and will be deleted after 60 seconds. If a user reaches the
+        rate limit, their IP address will be temporarily blocked for a certain
+        period of time. We take the privacy of our users seriously and do not
+        share this information with third parties, except as required by law.
         We'll never sell your personal information to third parties, and we
         won't use your name and email in marketing statements without your
         permission either.
