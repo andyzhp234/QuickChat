@@ -48,6 +48,10 @@ for most case a stun server is enough, but stun server is unreliable because mos
 
 stun server I will use is the google stun server: stun:stun.l.google.com:19302
 
+We need stun server because we need specific informations about the user such as the unique IP address to establish p2p connection. Firewalls are another common network constraint that can prevent direct P2P communication between two devices. STUN/TURN servers help to bypass firewalls by using a technique called "hole punching" to establish a connection between the two devices. NAT (Network Address Translation) is a common technique used in home and office networks to allow multiple devices to share a single public IP address. However, NAT can cause problems for WebRTC because it changes the IP address and port number of the user's device, making it difficult for two devices to establish a direct P2P connection. STUN/TURN servers help to overcome this problem by discovering the public IP address and port of the user's device and by acting as a relay server if direct P2P communication is not possible.
+
+<img src="./screenshots/webRTC_flow.jpeg" alt=""/>
+
 ## Redis
 
 The redis will store two entries for a user when a user logs in.
