@@ -4,7 +4,7 @@ export default function TermsOfServices() {
   return (
     <div className="p-10">
       <h1 className="py-2 text-5xl font-semibold">Terms and Conditions</h1>
-      <p>Last updated: February 25, 2023</p>
+      <p>Last updated: February 28, 2023</p>
       <p>
         Please read these terms and conditions carefully before using Our
         Service.
@@ -146,6 +146,42 @@ export default function TermsOfServices() {
       <p>
         We strongly advise You to read the terms and conditions and privacy
         policies of any third-party web sites or services that You visit.
+      </p>
+      <h1 className="py-2 text-4xl font-semibold">
+        Information We Collect and Usage
+      </h1>
+      <p>
+        When you sign up for a Quick Chat Account, we ask for identifying
+        information such as your name, username, email address, and password to
+        provide you with a safe, customized, and efficient experience. "Cookies"
+        are pieces of information that are passed to your browser and stored on
+        your computer's hard drive. We use cookies on our website to enhance
+        your experience and for authentication purposes. The cookie we use is an
+        httponly cookie, which is a functional cookie that is used solely for
+        authentication purposes. This cookie is not used to track your activity
+        on our website or collect any personal information about you. It is also
+        not accessible to any third-party websites. You can adjust cookie
+        retention settings and accept or block individual cookies in your
+        browser settings, although our apps won't work and other aspects of our
+        service may not function properly if you turn cookies off. By using our
+        website, you consent to the use of this cookie for authentication
+        purposes. Accounts created on our website are subject to periodic
+        deletion. While we make every effort to delete accounts in a timely
+        manner, the exact timing of these deletions may vary and is not
+        guaranteed. By creating an account on our website, you acknowledge and
+        agree that your account may be deleted at any time without prior notice.
+        We collect certain information about users of our chat app, including
+        their IP addresses, to implement rate limiting and prevent spamming.
+        Specifically, we save the IP address of the sender and the number of
+        requests being sent within the last 60 seconds in Redis for the purpose
+        of rate limiting. This information is only used for the purpose of rate
+        limiting and will be deleted after 60 seconds. If a user reaches the
+        rate limit, their IP address will be temporarily blocked for a certain
+        period of time. We take the privacy of our users seriously and do not
+        share this information with third parties, except as required by law.
+        We'll never sell your personal information to third parties, and we
+        won't use your name and email in marketing statements without your
+        permission either.
       </p>
       <h1 className="py-2 text-4xl font-semibold">Termination</h1>
       <p>
