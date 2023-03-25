@@ -133,7 +133,9 @@ export const VideoProvider = ({ children }) => {
   }
 
   function hangupVideoCall() {
-    localStream.getTracks().forEach((track) => track.stop());
+    if (localStream) {
+      localStream.getTracks().forEach((track) => track.stop());
+    }
     socket.emit("leave-video-room", {
       conversationId: conversationId,
     });
