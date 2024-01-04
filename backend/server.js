@@ -64,6 +64,9 @@ const RedisStore = pkg(session);
 const redisClient = createClient({
   url: process.env.RD_URL,
   legacyMode: true,
+  socket: {
+    connectTimeout: 50000,
+  },
 });
 
 redisClient
