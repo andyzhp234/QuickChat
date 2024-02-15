@@ -66,7 +66,21 @@ const redisClient = createClient({
   legacyMode: true,
   socket: {
     connectTimeout: 50000,
+    reconnectStrategy: (retries) => {
+      // Return a delay in milliseconds before the next reconnect attempt
+      // or return false to stop trying
+      if (retries < 10) {
+        // Exponential back-off strategy
+        return Math.min(retries * 50, 5000);
+      } else {
+        return false;
+      }
+    },
   },
+});
+
+redisClient.on("error", () => {
+  console.error("Redis Client Error", err);
 });
 
 redisClient
