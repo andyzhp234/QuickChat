@@ -69,6 +69,7 @@ const redisClient = createClient({
     reconnectStrategy: (retries) => {
       // Return a delay in milliseconds before the next reconnect attempt
       // or return false to stop trying
+      console.log(`Attempting to reconnect to Redis... Attempt #${retries}`);
       if (retries < 10) {
         // Exponential back-off strategy
         return Math.min(retries * 50, 5000);
@@ -80,7 +81,7 @@ const redisClient = createClient({
 });
 
 redisClient.on("error", (err) => {
-  console.error("Redis Client Error", err);
+  console.error("Redis Client Error");
 });
 
 redisClient
