@@ -7,7 +7,7 @@ import session from "express-session";
 import pkg from "connect-redis";
 import { createClient } from "redis";
 import { connectDB } from "./db/index.js";
-import { startClearTableTask } from "./db/clearTable.js";
+import startClearTableTask from "./db/clearTable.js";
 import http from "http";
 import registerSocketServer from "./socketServer.js";
 import authRoutes from "./routers/authRoutes.js";
