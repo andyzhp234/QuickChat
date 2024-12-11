@@ -16,7 +16,8 @@ import { store } from "../store/store";
 
 let socket = null;
 // let socketServerUrl = "http://127.0.0.1:3000";
-let socketServerUrl = `https://api.quick-chat.app`;
+// let socketServerUrl = `https://api.quick-chat.app`;
+let socketServerUrl = `https://quickchat-production.up.railway.app`;
 
 export const connectWithSocketServer = () => {
   socket = io(socketServerUrl, {

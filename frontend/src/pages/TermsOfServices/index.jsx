@@ -82,11 +82,11 @@ export default function TermsOfServices() {
           <p>
             <strong>Website</strong> refers to Quick Chat, accessible from{" "}
             <a
-              href="https://quick-chat.app/"
+              href="https://quickchat-production.up.railway.app"
               rel="external nofollow noopener"
               target="_blank"
             >
-              https://quick-chat.app/
+              https://quickchat-production.up.railway.app
             </a>
           </p>
         </li>
