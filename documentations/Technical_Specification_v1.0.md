@@ -142,7 +142,7 @@ I am following ES Modules instead of CommonJS.
 
 Backend Server Domain Name: https://quickchat-production.up.railway.app
 
-Frontend Server Domain Name: https://quick-chat.app
+Frontend Server Domain Name: https://quickchat-app.netlify.app/
 
 ## Attributions
 
