@@ -3,8 +3,8 @@ import db from "./index.js";
 const clearTable = async () => {
   try {
     await db.query('TRUNCATE TABLE "Messages";');
-    await db.query('TRUNCATE TABLE "ConversationParticipants";');
-    await db.query('TRUNCATE TABLE "Conversations";');
+    // await db.query('TRUNCATE TABLE "ConversationParticipants";');
+    // await db.query('TRUNCATE TABLE "Conversations";');
     console.log("Messages cleared successfully.");
   } catch (error) {
     console.error("Error clearing Messages:", error.message);
