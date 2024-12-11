@@ -20,7 +20,7 @@ export default function Login() {
 
     let response;
     if (isDemo) {
-      response = await dispatch(userLoginAction("demo@gmail.com", "11111111"));
+      response = await dispatch(userLoginAction("Morgan@gmail.com", "123456"));
     } else {
       if (password.length < 6 || password.length > 12) {
         setErrorMessage("Password needs to be length between 6 - 12");

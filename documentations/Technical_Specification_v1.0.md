@@ -149,3 +149,8 @@ Frontend Server Domain Name: https://quickchat-app.netlify.app/
 Icons: Google Material Symbols and Icons
 
 Logos: Canva
+
+# Demo User:
+
+John John@gmail.com 123456
+Morgan Morgan@gmail.com 123456
