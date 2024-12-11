@@ -1,5 +1,4 @@
-import cron from "node-cron";
-import db from "./index.js"; // Assuming your PostgreSQL connection setup is in db.js
+import db from "./index.js";
 
 const clearTable = async () => {
   try {
@@ -10,12 +9,15 @@ const clearTable = async () => {
   }
 };
 
-// Schedule the task to run every 24 hours (midnight)
-export const startClearTableTask = () => {
-  //   cron.schedule("0 0 * * *", async () => {
-  cron.schedule("* * * * *", async () => {
-    console.log("Scheduled task running to clear Messages...");
-    await clearTable();
-  });
-  console.log("Scheduled clearing task set up.");
+const startClearTableTask = () => {
+  // Run the task immediately on server start
+  clearTable();
+
+  // Schedule the task to run every 24 hours (86,400,000 milliseconds)
+  const interval = 24 * 60 * 60 * 1000; // 24 hours
+  setInterval(clearTable, interval);
+
+  console.log("Scheduler started to clear chat table every 24 hours.");
 };
+
+export default startClearTableTask;
