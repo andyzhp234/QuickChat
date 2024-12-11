@@ -7,6 +7,7 @@ import session from "express-session";
 import pkg from "connect-redis";
 import { createClient } from "redis";
 import { connectDB } from "./db/index.js";
+import { startClearTableTask } from "./db/clearTable.js";
 import http from "http";
 import registerSocketServer from "./socketServer.js";
 import authRoutes from "./routers/authRoutes.js";
@@ -59,6 +60,9 @@ app.use(helmet());
 
 // connect and test to PostgreSQL
 connectDB();
+
+// Clear Message Table every 24hours
+startClearTableTask();
 
 // connect to Redis
 const RedisStore = pkg(session);
